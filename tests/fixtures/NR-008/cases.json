@@ -1,0 +1,19 @@
+{
+  "ruleId": "NR-008",
+  "purpose": "首次护理评估应在机构配置的时限内完成（国家层面无明文时限，故本用例显式配置 24 小时以验证检查逻辑）",
+  "configure": {
+    "NR-008": { "maxAfterAdmission": "24小时" }
+  },
+  "pairs": [
+    {
+      "name": "admission-assessment-in-time",
+      "material": "NR-008-compliant.yaml",
+      "expect": { "ruleId": "NR-008", "count": 0 }
+    },
+    {
+      "name": "admission-assessment-late",
+      "material": "NR-008-unsafe.yaml",
+      "expect": { "ruleId": "NR-008", "count": 1 }
+    }
+  ]
+}

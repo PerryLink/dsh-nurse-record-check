@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-004",
+  "purpose": "抢救记录应在抢救结束后规定时限内补记",
+  "pairs": [
+    {
+      "name": "rescue-written-in-window",
+      "material": "NR-004-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-004",
+        "count": 0
+      }
+    },
+    {
+      "name": "rescue-written-late",
+      "material": "NR-004-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-004",
+        "count": 1
+      }
+    }
+  ]
+}

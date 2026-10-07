@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-009",
+  "purpose": "应留存跌倒与压疮风险评估记录",
+  "pairs": [
+    {
+      "name": "both-risk-forms-present",
+      "material": "NR-009-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-009",
+        "count": 0
+      }
+    },
+    {
+      "name": "pressure-ulcer-form-missing",
+      "material": "NR-009-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-009",
+        "count": 1
+      }
+    }
+  ]
+}

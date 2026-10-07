@@ -1,0 +1,13 @@
+target: 内科三病区 2026-03-15 护理记录（NR-007 违规样本）
+episode:
+  admittedAt: "2026-03-15 08:00"
+  patientLabel: 样本患者甲
+  careLevel: level-2
+orders:
+  - id: ORD-1003
+    type: temporary
+    orderedAt: "2026-03-15 10:00"
+    execution:
+      outcome: cancelled
+    cancellation:
+      cancelledAt: "2026-03-15 10:10"

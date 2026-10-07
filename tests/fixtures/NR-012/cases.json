@@ -1,0 +1,19 @@
+{
+  "ruleId": "NR-012",
+  "purpose": "护理记录书写频次应符合本机构配置要求（国家层面无明文频次；本用例显式配置阈值以验证检查逻辑）",
+  "configure": {
+    "NR-012": { "intervalHours": { "level-2": 12 } }
+  },
+  "pairs": [
+    {
+      "name": "configured-interval-satisfied",
+      "material": "NR-012-compliant.yaml",
+      "expect": { "ruleId": "NR-012", "count": 0 }
+    },
+    {
+      "name": "configured-interval-exceeded",
+      "material": "NR-012-unsafe.yaml",
+      "expect": { "ruleId": "NR-012", "count": 1 }
+    }
+  ]
+}

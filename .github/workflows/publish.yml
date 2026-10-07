@@ -1,0 +1,85 @@
+name: publish
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write # GitHub Release
+  id-token: write # npm provenance
+
+concurrency:
+  group: publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11.7.0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+          registry-url: 'https://registry.npmjs.org'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run typecheck
+      - run: pnpm test
+      - run: pnpm run build
+      - name: Verify the tag matches the package version
+        shell: bash
+        run: |
+          tag="v$(node -p "require('./package.json').version")"
+          if [ "${GITHUB_REF_NAME}" != "${tag}" ]; then
+            echo "tag ${GITHUB_REF_NAME} does not match package version ${tag}"
+            exit 1
+          fi
+      # Bootstrap release. npm refuses to configure a trusted publisher for a
+      # package that does not exist yet, so 0.1.0 authenticates with the
+      # NPM_TOKEN secret; provenance still comes over OIDC (id-token: write
+      # above), which is what puts the attestation on the published version.
+      # Once the package exists, move it to trusted publishing and drop the
+      # secret from this step.
+      - name: Publish to npm
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          if npm view "dsh-nurse-record-check@${version}" version >/dev/null 2>&1; then
+            echo "dsh-nurse-record-check@${version} is already published; skipping npm publish"
+          else
+            set +e
+            out="$(pnpm publish --no-git-checks --provenance --access public 2>&1)"
+            status=$?
+            set -e
+            printf '%s\n' "$out"
+            if [ "$status" -ne 0 ]; then
+              if printf '%s' "$out" | grep -qE 'E409|EPUBLISHCONFLICT'; then
+                echo "already on the registry (E409); treating the publish as done"
+              else
+                exit "$status"
+              fi
+            fi
+          fi
+      # Advisory only: npm's read side can lag a successful publish.
+      - name: Verify the version is live on the registry (advisory)
+        shell: bash
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          for attempt in $(seq 1 12); do
+            if npm view "dsh-nurse-record-check@${version}" version >/dev/null 2>&1; then
+              echo "dsh-nurse-record-check@${version} is live on the registry"
+              exit 0
+            fi
+            echo "attempt ${attempt}: not visible on the registry yet; retrying"
+            sleep 15
+          done
+          echo "::warning::dsh-nurse-record-check@${version} is still not visible after ~3 minutes"
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          generate_release_notes: true

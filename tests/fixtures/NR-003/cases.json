@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-003",
+  "purpose": "抢救记录的时间应精确到分钟",
+  "pairs": [
+    {
+      "name": "rescue-with-minute",
+      "material": "NR-003-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-003",
+        "count": 0
+      }
+    },
+    {
+      "name": "rescue-day-only",
+      "material": "NR-003-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-003",
+        "count": 1
+      }
+    }
+  ]
+}

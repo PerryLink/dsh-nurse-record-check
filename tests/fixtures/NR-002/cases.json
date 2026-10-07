@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-002",
+  "purpose": "材料中的时间字段应可解析",
+  "pairs": [
+    {
+      "name": "readable-timestamp",
+      "material": "NR-002-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-002",
+        "count": 0
+      }
+    },
+    {
+      "name": "chinese-date-timestamp",
+      "material": "NR-002-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-002",
+        "count": 1
+      }
+    }
+  ]
+}

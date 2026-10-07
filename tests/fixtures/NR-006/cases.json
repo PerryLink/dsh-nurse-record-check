@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-006",
+  "purpose": "执行时间不应早于开立时间",
+  "pairs": [
+    {
+      "name": "executed-after-ordered",
+      "material": "NR-006-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-006",
+        "count": 0
+      }
+    },
+    {
+      "name": "executed-before-ordered",
+      "material": "NR-006-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-006",
+        "count": 1
+      }
+    }
+  ]
+}

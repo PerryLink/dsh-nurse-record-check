@@ -1,0 +1,18 @@
+// NR-002 材料中的时间字段应可解析
+// 合规样本：抢救记录时间可解析
+// 违规样本：记录时间写成中文日期，无法解析
+target: 内科三病区 2026-03-15 护理记录（NR-002）
+episode:
+  admittedAt: "2026-03-15 08:00"
+  patientLabel: 样本患者乙
+records:
+  - id: REC-0002
+    kind: general
+    recordedAt: "2026-03-15 10:15"
+    nurseId: N10231
+compliant:
+  expectRule: NR-002
+  expectCount: 0
+unsafe:
+  expectRule: NR-002
+  expectCount: 1

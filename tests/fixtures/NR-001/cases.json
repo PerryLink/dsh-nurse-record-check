@@ -1,0 +1,16 @@
+{
+  "ruleId": "NR-001",
+  "purpose": "护理记录应有签名护士标识",
+  "pairs": [
+    {
+      "name": "signed-record",
+      "material": "NR-001-compliant.yaml",
+      "expect": { "ruleId": "NR-001", "count": 0 }
+    },
+    {
+      "name": "missing-signature",
+      "material": "NR-001-unsafe.yaml",
+      "expect": { "ruleId": "NR-001", "count": 1 }
+    }
+  ]
+}

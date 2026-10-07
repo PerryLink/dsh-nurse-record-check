@@ -1,0 +1,18 @@
+target: 内科三病区 2026-03-15 护理记录（NR-003 违规样本）
+episode:
+  admittedAt: "2026-03-15 08:00"
+  patientLabel: 样本患者甲
+  careLevel: level-2
+records:
+  - id: REC-0003
+    kind: rescue
+    recordedAt: "2026-03-15"
+    rescueEndedAt: "2026-03-15 13:50"
+    nurseId: N10231
+assessments:
+  - kind: 入院评估
+    completedAt: "2026-03-15 09:00"
+  - kind: 跌倒风险评估
+    completedAt: "2026-03-15 09:10"
+  - kind: 压疮风险评估
+    completedAt: "2026-03-15 09:20"

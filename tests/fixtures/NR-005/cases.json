@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-005",
+  "purpose": "临时医嘱执行后应有执行时间与执行人签名",
+  "pairs": [
+    {
+      "name": "temporary-order-signed",
+      "material": "NR-005-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-005",
+        "count": 0
+      }
+    },
+    {
+      "name": "temporary-order-unsigned",
+      "material": "NR-005-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-005",
+        "count": 1
+      }
+    }
+  ]
+}

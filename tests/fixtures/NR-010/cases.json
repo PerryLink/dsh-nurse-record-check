@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-010",
+  "purpose": "护理记录时间不应早于所记录事件的执行时间",
+  "pairs": [
+    {
+      "name": "record-after-execution",
+      "material": "NR-010-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-010",
+        "count": 0
+      }
+    },
+    {
+      "name": "record-before-execution",
+      "material": "NR-010-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-010",
+        "count": 1
+      }
+    }
+  ]
+}

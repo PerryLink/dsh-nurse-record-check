@@ -1,0 +1,296 @@
+# 护理记录检查规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration  阈值出自本机构/本省规定而非国家标准（severity 最多 info）
+#
+# 《民法典》侵权责任编的两条相关条文（已逐字核对，见 rules/evidence/clause-verification-civilcode.md）：
+#   · **第一千二百二十五条**「医疗机构及其医务人员应当**按照规定填写并妥善保管**住院志、医嘱单、检验报告、
+#     手术及麻醉记录、病理资料、**护理记录**等**病历资料**。」
+#     ⇒ **护理记录被条文明文列举，属于法定病历资料，不是可选项**；"应当填写并妥善保管"**有法律层面的依据**，
+#     卫健委的规范与标准是它的**具体化**（"按照规定"是转致条款）。
+#   · **第一千二百五十九条**「民法所称的"**以上**""**以下**""**以内**""**届满**"，**包括本数**；
+#     所称的"**不满**""**超过**""**以外**"，**不包括本数**。」
+#     ⇒ ⚠️ **本规则库的时限类检查（如抢救记录补记时限）在"恰好等于时限"时的行为必须与所引条文的用语一致**，
+#     且**必须在规则 note 里写明等号处取"含"还是"不含"**。
+#   · ⚠️ **《民法典》自 2021-01-01 施行**（第一千二百六十条），同时废止**《合同法》《侵权责任法》等九部法律**
+#     ⇒ **引用《侵权责任法》即为引用已废止法律**，本库不得引用。
+#   ⚠️ **但本插件的规则仍不升为 direct**：第一千二百二十五条**未规定任何时限**，
+#     时限与记录要素出自 **WS/T 431—2023、国卫医政发〔2023〕16 号等卫健委规范（其全文本次仍未取得）** ——
+#     那才是本插件把 kind 升为 direct 的前提。
+#   违反上述上限的规则会在加载期响亮失败，不会静默降级。
+#
+# 条款号的核验过程与来源清单见 rules/evidence/clause-verification.md。
+
+plugin: dsh-nurse-record-check
+version: "2026.1"
+
+rules:
+  - id: NR-001
+    title: 护理记录应能追溯到具体记录人
+    severity: error
+    basis:
+      document: 《电子病历应用管理规范（试行）》
+      number: 国卫办医发〔2017〕8号
+      clause: 第十四条
+      excerpt: 保存历次操作印痕，标记操作时间和操作人员信息，并保证历次操作印痕、标记操作时间和操作人员信息可查询、可追溯。
+      kind: direct
+      source: https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_59868.html
+    alsoBasis:
+      - document: 《电子病历应用管理规范（试行）》
+        number: 国卫办医发〔2017〕8号
+        clause: 第十五条
+        excerpt: 医务人员采用身份标识登录电子病历系统完成书写、审阅、修改等操作并予以确认后，系统应当显示医务人员姓名及完成时间。
+        kind: direct
+        source: https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_59868.html
+    params:
+      nurseIdPattern:
+        - '^[A-Za-z0-9\u4e00-\u9fa5_-]{2,32}$'
+    note: 本条只核对材料是否留下记录人标识与时间，不校验电子签名的技术实现。
+
+  - id: NR-002
+    title: 材料中的日期与时间应按 24 小时制书写且可解析
+    severity: error
+    basis:
+      document: 《病历书写基本规范》
+      number: 卫医政发〔2010〕11号
+      clause: 第九条
+      excerpt: 病历书写一律使用阿拉伯数字书写日期和时间，采用24小时制记录。
+      kind: direct
+      source: https://eq.jiceng.zhengzhou.gov.cn/021011002/6447542.jhtml
+    note: 时间可解析是全部时限类检查的前置条件；未通过本条的记录不参与时限比对。
+
+  - id: NR-003
+    title: 抢救时间应具体到分钟
+    severity: error
+    basis:
+      document: 《病历书写基本规范》
+      number: 卫医政发〔2010〕11号
+      clause: 第二十二条（八）
+      excerpt: 记录抢救时间应当具体到分钟。
+      kind: direct
+      source: https://eq.jiceng.zhengzhou.gov.cn/021011002/6447542.jhtml
+    alsoBasis:
+      - document: 《医疗质量安全核心制度要点》
+        number: 国卫医发〔2018〕8号
+        clause: 七（二）4
+        excerpt: 记录时间应具体到分钟，主持抢救的人员应当审核并签字。
+        kind: direct
+        source: http://hncis.hnwsjk.cn/huxi/contents/192/14430.html
+    params:
+      kinds:
+        - rescue
+    note: 11号文要求的对象是「抢救时间」，8号文要求的对象是「记录时间」；两条措辞不同，此处合并呈现并分别标注出处。
+
+  - id: NR-004
+    title: 抢救记录应在抢救结束后 6 小时内补记
+    severity: error
+    basis:
+      document: 《病历书写基本规范》
+      number: 卫医政发〔2010〕11号
+      clause: 第二十二条（八）
+      excerpt: 因抢救急危患者，未能及时书写病历的，有关医务人员应当在抢救结束后6小时内据实补记，并加以注明。
+      kind: direct
+      source: https://eq.jiceng.zhengzhou.gov.cn/021011002/6447542.jhtml
+    alsoBasis:
+      - document: 《医疗质量安全核心制度要点》
+        number: 国卫医发〔2018〕8号
+        clause: 七（二）4
+        excerpt: 抢救完成后6小时内应当将抢救记录记入病历。
+        kind: direct
+        source: http://hncis.hnwsjk.cn/huxi/contents/192/14430.html
+    params:
+      maxHours: 6
+    note: 补记时限与「记录抢救时间具体到分钟」同属第二十二条（八）项，但分属两个不同要求，故拆为 NR-003 与 NR-004 两条。
+
+  - id: NR-005
+    title: 临时医嘱应记录执行时间与执行护士签名
+    severity: error
+    basis:
+      document: 《病历书写基本规范》
+      number: 卫医政发〔2010〕11号
+      clause: 第二十八条
+      excerpt: 临时医嘱单内容包括医嘱时间、临时医嘱内容、医师签名、执行时间、执行护士签名等。
+      kind: direct
+      source: https://eq.jiceng.zhengzhou.gov.cn/021011002/6447542.jhtml
+    alsoBasis:
+      - document: 《卫生部办公厅关于在医疗机构推行表格式护理文书的通知》
+        number: 卫办医政发〔2010〕125号
+        clause: 二（三）
+        excerpt: 由医师填写医嘱时间、临时医嘱内容；由执行临时医嘱的护士填写执行时间并签名。
+        kind: direct
+        source: https://wsjkw.sh.gov.cn/yzgl3/20180815/0012-59342.html
+    note: >-
+      国家规范只规定「由执行护士填写执行时间并签名」，未规定签名时限，故本条不检查执行后多久签名。
+      长期医嘱单与临时医嘱单的内容项不同（长期单含起始/停止日期和时间、页码），不得互相套用，本条只对临时医嘱。
+
+  - id: NR-006
+    title: 执行时间不应早于开立时间
+    severity: info
+    basis:
+      document: 《电子病历应用管理规范（试行）》
+      number: 国卫办医发〔2017〕8号
+      clause: 第十五条
+      excerpt: 医务人员采用身份标识登录电子病历系统完成书写、审阅、修改等操作并予以确认后，系统应当显示医务人员姓名及完成时间。
+      kind: derived-from-principle
+      source: https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_59868.html
+    params:
+      maxLagMinutes: 120
+    note: 未找到禁止「执行时间早于开立时间」的明文条款，本条按时间字段本身的字面矛盾列出。
+
+  - id: NR-007
+    title: 取消的医嘱应标注取消并签名
+    severity: error
+    basis:
+      document: 《病历书写基本规范》
+      number: 卫医政发〔2010〕11号
+      clause: 第二十八条
+      excerpt: 医嘱不得涂改。需要取消时，应当使用红色墨水标注"取消"字样并签名。
+      kind: direct
+      source: https://eq.jiceng.zhengzhou.gov.cn/021011002/6447542.jhtml
+    note: 国家规范只有「取消」条款，没有「作废」条款；材料中出现作废状态时按取消同样处理。
+
+  - id: NR-008
+    title: 首次护理评估应在机构配置的时限内完成
+    severity: info
+    basis:
+      document: 《护理分级标准》
+      number: WS/T 431—2023（全部代替 WS/T 431—2013；推荐性卫生行业标准，2024-02-01 施行）
+      clause: 4.2.1（条号沿用原引用，本次未能核对）
+      excerpt: 该条文本次未取得：核查未获得 WS/T 431—2023 的逐字正文（官方 PDF 无法取文本，平台在线预览不可用），本规则库不伪造引文。
+      kind: institutional-configuration
+      source: https://std.samr.gov.cn/hb/search/stdHBDetailed?id=047FDC554F2B9D25E06397BE0A0AD011
+    params:
+      maxAfterAdmission: ""
+    note: >-
+      ⚠️ **本条的 `excerpt` 已按核查结果改写**（见 rules/evidence/clause-verification-wst431.md）。
+      此前的 `excerpt` 写成了一句**看起来像逐字引文的话**（「入院后应根据患者病情严重程度确定病情等级。」），
+      而核查**未能取得 WS/T 431—2023 的正文** —— **无法确认该句话是否出自该标准、条号是否为 4.2.1**。
+      按本规则库的条款引用纪律，**未核实的句子不得以引文形式出现**，故已改为"本次未取得"的如实标注。
+      **可核的官方事实**（全国标准信息公共服务平台与国卫通〔2023〕9 号两处印证）：
+      标准号 **WS/T 431—2023**、**推荐性**、**2023-08-29 发布 / 2024-02-01 施行**、
+      **全部代替 WS/T 431—2013**（该版已废止，引用即错）。
+      ⚠️ **本条本来就不依赖标准的数字**：`maxAfterAdmission` 是**本机构配置**的时限，留空表示未配置；
+      未配置时本条不执行并计入 skipped，**不会静默当作已检查**。
+      国家层面「入院后 X 小时内完成首次护理评估」的明文时限本次未找到；
+      《病历书写基本规范》**第十七条**的 24 小时针对的是**医师书写的入院记录**，**不得套用**到护理评估上。
+
+  - id: NR-009
+    title: 应留存跌倒与压力性损伤风险防范相关记录
+    severity: warn
+    basis:
+      document: 《进一步改善护理服务行动计划（2023—2025年）》
+      number: 国卫医政发〔2023〕16号
+      clause: 三（七）
+      excerpt: 要增强并发症早期预警识别能力，降低住院患者跌倒、院内新发压力性损伤等医疗安全不良事件发生率。
+      kind: direct
+      source: https://www.gov.cn/zhengce/zhengceku/202306/content_6887303.htm
+    alsoBasis:
+      - document: 《三级医院评审标准（2020年版）》
+        number: 国卫医发〔2020〕26号
+        clause: 三（七十）
+        excerpt: 关注院内安全，有针对心跳骤停、昏迷、跌倒等高风险意外事件的应急措施和救护机制。
+        kind: direct
+        source: https://www.gov.cn/zhengce/zhengceku/2020-12/28/content_5574274.htm
+    params:
+      require:
+        - fall-risk
+        - pressure-ulcer
+    note: 国家规范要求降低发生率与建立防范机制，未列举具体评估表清单，也未规定评估频次；本条只核对表单是否留存。
+
+  - id: NR-010
+    title: 记录时间不应早于所记录事件的执行时间
+    severity: info
+    basis:
+      document: 《电子病历应用管理规范（试行）》
+      number: 国卫办医发〔2017〕8号
+      clause: 第十四条
+      excerpt: 保存历次操作印痕，标记操作时间和操作人员信息。
+      kind: derived-from-principle
+      source: https://www.beijing.gov.cn/zhengce/zhengcefagui/201905/t20190522_59868.html
+    alsoBasis:
+      - document: 《病历书写基本规范》
+        number: 卫医政发〔2010〕11号
+        clause: 第三条
+        excerpt: 病历书写应当客观、真实、准确、及时、完整、规范。
+        kind: derived-from-principle
+        source: https://eq.jiceng.zhengzhou.gov.cn/021011002/6447542.jhtml
+    note: 未找到禁止「记录时间早于执行时间」的明文条款；本条只能作为时间字面矛盾的线索，须由人工核实。
+
+  - id: NR-011
+    title: 分级护理巡视间隔不应超过指导原则规定
+    severity: error
+    basis:
+      document: 《综合医院分级护理指导原则（试行）》
+      number: 卫医政发〔2009〕49号
+      clause: 第十四条（一）
+      excerpt: 每小时巡视患者，观察患者病情变化。
+      kind: direct
+      source: https://wsjkw.sh.gov.cn/yzgl3/20180815/0012-59592.html
+    alsoBasis:
+      - document: 《综合医院分级护理指导原则（试行）》
+        number: 卫医政发〔2009〕49号
+        clause: 第十五条（一）
+        excerpt: 每2小时巡视患者，观察患者病情变化。
+        kind: direct
+        source: https://wsjkw.sh.gov.cn/yzgl3/20180815/0012-59592.html
+      - document: 《综合医院分级护理指导原则（试行）》
+        number: 卫医政发〔2009〕49号
+        clause: 第十六条（一）
+        excerpt: 每3小时巡视患者，观察患者病情变化。
+        kind: direct
+        source: https://wsjkw.sh.gov.cn/yzgl3/20180815/0012-59592.html
+    params:
+      toleranceMinutes: 15
+      intervalLevel1Hours: 1
+      intervalLevel2Hours: 2
+      intervalLevel3Hours: 3
+    note: >-
+      本条核对的是巡视间隔。
+      ⚠️ **依据的效力层级已按全文核定更正**（见 rules/evidence/clause-verification-nursing-levels.md）：
+      本文件是**规范性文件**（"指导原则（试行）"，卫医政发〔2009〕49号，**2009-07-01 施行**），
+      **既不是国家标准，也不是部门规章** —— 原文此处原先写作"依据为国标明文"，**不准确，已改**。
+      本条定为 error 的理由是**条文的措辞是明确的数字要求**（"每小时"），**不是它的效力等级**。
+      三条逐字原文：**第十四条（一）「每小时巡视患者，观察患者病情变化」**、
+      **第十五条（一）「每2小时巡视患者，观察患者病情变化」**、
+      **第十六条（一）「每3小时巡视患者，观察患者病情变化」**。
+      ⚠️ **特级护理（第十三条）只要求「严密观察患者病情变化，监测生命体征」，未给具体间隔**，
+      故本条不检查特级护理 —— 配置里若给特级也填间隔，属于**超出条文**的配置。
+      ⚠️ 原文没有「至少」二字，阈值按原文数值设置；`toleranceMinutes: 15` 是**本机构口径的吸收
+      记录颗粒度误差的宽限**，**不是条文给出的容差**。
+      ⚠️ **护理级别是临床判断的结果**（第二条以"病情和生活自理能力"为依据；第七条并要求
+      "**根据患者的情况变化进行动态调整**"）—— 台账若只记一次级别、不随病情更新，本条会算错。
+      注意：巡视间隔不是护理记录频次，两者不可互换。
+
+  - id: NR-012
+    title: 护理记录书写频次应符合本机构配置要求
+    severity: info
+    basis:
+      document: 《病历书写基本规范》
+      number: 卫医政发〔2010〕11号
+      clause: 第三条
+      excerpt: 病历书写应当客观、真实、准确、及时、完整、规范。
+      kind: institutional-configuration
+      source: https://eq.jiceng.zhengzhou.gov.cn/021011002/6447542.jhtml
+    params:
+      intervalHours: {}
+    note: >-
+      ⚠️ **本条的说明已按全文核对改写**（见 rules/evidence/clause-verification-medical-record-rules.md）。
+      原先写「国家层面未找到按护理级别规定护理记录频次的明文」——**这个理由不成立**：
+      《病历书写基本规范》**第二十二条（二）**确有频次明文：「**对病危患者**应当根据病情变化随时书写病程记录，
+      **每天至少 1 次**……**对病重患者，至少 2 天记录一次**……**对病情稳定的患者，至少 3 天记录一次**」。
+      **但本插件仍不内置这三个数字**，改用三条更准确的理由：
+      ① 条文说的是「**病程记录**」（医师书写），本插件核对的是「**护理记录**」——
+         护理记录的频次规定在**护理文书类文件**里（如卫办医政发〔2010〕125号），**该文件全文本次未取得**；
+      ② 「病危／病重／病情稳定」是**临床判断**，台账里通常**没有这个分级字段**，无法机械套用；
+      ③ 把"病程记录至少 3 天一次"套到护理记录上会**造成大量假阳性**。
+      ⇒ 故本条保持 institutional-configuration（封顶 info），**不内置任何频次数字**。
+      intervalHours 留空表示未配置，本条不执行并计入 skipped。
+      配置示例（黑龙江省，仅限该省）：intervalHours: { level-1: 2, level-2: 8 }，并须在报告备注中标注依据出处。
+
+disabled: []

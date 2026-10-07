@@ -1,0 +1,16 @@
+{
+  "ruleId": "NR-011",
+  "purpose": "分级护理巡视间隔不应超过指导原则规定（卫医政发〔2009〕49号 第十四/十五/十六条）",
+  "pairs": [
+    {
+      "name": "level-2-rounds-within-two-hours",
+      "material": "NR-011-compliant.yaml",
+      "expect": { "ruleId": "NR-011", "count": 0 }
+    },
+    {
+      "name": "level-2-rounds-gap-over-two-hours",
+      "material": "NR-011-unsafe.yaml",
+      "expect": { "ruleId": "NR-011", "count": 1 }
+    }
+  ]
+}

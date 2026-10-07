@@ -1,0 +1,17 @@
+target: 内科三病区 2026-03-15 护理记录（NR-009 合规样本）
+episode:
+  admittedAt: "2026-03-15 08:00"
+  patientLabel: 样本患者甲
+  careLevel: level-2
+records:
+  - id: REC-0009
+    kind: general
+    recordedAt: "2026-03-15 09:00"
+    nurseId: N10231
+assessments:
+  - kind: 入院评估
+    completedAt: "2026-03-15 09:30"
+  - kind: 跌倒坠床风险评估
+    completedAt: "2026-03-15 09:40"
+  - kind: 压力性损伤风险评估
+    completedAt: "2026-03-15 09:50"

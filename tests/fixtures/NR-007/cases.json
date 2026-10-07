@@ -1,0 +1,22 @@
+{
+  "ruleId": "NR-007",
+  "purpose": "取消的医嘱应记录取消时间与原因",
+  "pairs": [
+    {
+      "name": "cancellation-complete",
+      "material": "NR-007-compliant.yaml",
+      "expect": {
+        "ruleId": "NR-007",
+        "count": 0
+      }
+    },
+    {
+      "name": "cancellation-without-reason",
+      "material": "NR-007-unsafe.yaml",
+      "expect": {
+        "ruleId": "NR-007",
+        "count": 1
+      }
+    }
+  ]
+}
