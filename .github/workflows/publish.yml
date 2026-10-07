@@ -29,6 +29,14 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm test
       - run: pnpm run build
+      # "npm stage" only exists from npm 11.15.0, and the npm bundled with the
+      # runner's Node 22 is older - without this the step dies with
+      # 'Unknown command: "stage"'.
+      - name: Upgrade npm so the stage command exists
+        shell: bash
+        run: |
+          npm install -g npm@^11.15.0
+          echo "npm: $(npm --version)"
       - name: Verify the tag matches the package version
         shell: bash
         run: |
@@ -37,48 +45,50 @@ jobs:
             echo "tag ${GITHUB_REF_NAME} does not match package version ${tag}"
             exit 1
           fi
-      # Bootstrap release. npm refuses to configure a trusted publisher for a
-      # package that does not exist yet, so 0.1.0 authenticates with the
-      # NPM_TOKEN secret; provenance still comes over OIDC (id-token: write
-      # above), which is what puts the attestation on the published version.
-      # Once the package exists, move it to trusted publishing and drop the
-      # secret from this step.
-      - name: Publish to npm
+      # This account's npm granular access tokens are stage-only. npm refuses a
+      # direct publish with them ("this token can only publish to a staging
+      # area") and refuses them outright for a package name that does not exist
+      # yet, so neither "npm publish" nor "pnpm publish" can deliver here.
+      #
+      # "npm stage publish" is the path that works for both, and it is what
+      # creates the package name the first time. A staged version is NOT
+      # installable until a maintainer approves it with 2FA (npm web UI, or
+      # "npm stage approve <stage-id>").
+      #
+      # Once the package exists and a trusted publisher is configured for this
+      # repository, replace this step with "npm publish --provenance".
+      - name: Stage the version on npm
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          set +e
+          out="$(npm stage publish --provenance --access public 2>&1)"
+          status=$?
+          set -e
+          printf '%s\n' "$out"
+          if [ "$status" -ne 0 ]; then
+            if printf '%s' "$out" | grep -qE 'E409|previously published|already staged'; then
+              echo "dsh-nurse-record-check@${version} is already staged or published; treating this as done"
+              exit 0
+            fi
+            exit "$status"
+          fi
+      # Advisory: say which of the two resting states the version is in, so the
+      # run summary does not read as "published" when it is only queued.
+      - name: Report the staged state (advisory)
         shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           version="$(node -p "require('./package.json').version")"
           if npm view "dsh-nurse-record-check@${version}" version >/dev/null 2>&1; then
-            echo "dsh-nurse-record-check@${version} is already published; skipping npm publish"
-          else
-            set +e
-            out="$(pnpm publish --no-git-checks --provenance --access public 2>&1)"
-            status=$?
-            set -e
-            printf '%s\n' "$out"
-            if [ "$status" -ne 0 ]; then
-              if printf '%s' "$out" | grep -qE 'E409|EPUBLISHCONFLICT'; then
-                echo "already on the registry (E409); treating the publish as done"
-              else
-                exit "$status"
-              fi
-            fi
+            echo "dsh-nurse-record-check@${version} is live on the registry"
+            exit 0
           fi
-      # Advisory only: npm's read side can lag a successful publish.
-      - name: Verify the version is live on the registry (advisory)
-        shell: bash
-        run: |
-          version="$(node -p "require('./package.json').version")"
-          for attempt in $(seq 1 12); do
-            if npm view "dsh-nurse-record-check@${version}" version >/dev/null 2>&1; then
-              echo "dsh-nurse-record-check@${version} is live on the registry"
-              exit 0
-            fi
-            echo "attempt ${attempt}: not visible on the registry yet; retrying"
-            sleep 15
-          done
-          echo "::warning::dsh-nurse-record-check@${version} is still not visible after ~3 minutes"
+          echo "::notice::dsh-nurse-record-check@${version} is staged and awaits maintainer approval with 2FA"
+          npm stage list "dsh-nurse-record-check" || true
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
