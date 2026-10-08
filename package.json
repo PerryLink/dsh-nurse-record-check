@@ -29,6 +29,10 @@
     "build": "tsdown",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "verify:self-contained": "node scripts/verify-self-contained.mjs",
+    "check:lockfile": "node scripts/check-lockfile-drift.mjs",
+    "check:readmes": "node scripts/check-readme-sync.mjs",
+    "prepublishOnly": "pnpm run typecheck && pnpm test && pnpm run build && pnpm run verify:self-contained && pnpm run check:readmes",
     "prepare": "tsdown"
   },
   "dsh": {

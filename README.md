@@ -42,8 +42,7 @@ themselves in `skipped` and never silently pass.
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./dsh-nurse-record-check-0.1.0.tgz
+dsh plugin --profile <name> add dsh-nurse-record-check
 dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 ```
 

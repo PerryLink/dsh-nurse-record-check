@@ -22,8 +22,7 @@ mismatches against cited clauses; it never decides whether an episode of care wa
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-nurse-record-check
 dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 ```
 
