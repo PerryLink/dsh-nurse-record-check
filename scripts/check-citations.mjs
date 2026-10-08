@@ -67,7 +67,13 @@ const fieldOf = (block, name) => {
 
 let haystack = ''
 if (existsSync(evidenceDir)) {
-  for (const file of readdirSync(evidenceDir).filter((f) => f.endsWith('.md'))) {
+  // A record whose name says the text was NOT obtained must not count as the
+  // place the text was found. Such a file quotes an excerpt in order to discuss
+  // it, and accepting that as provenance would let a blocked citation clear the
+  // gate on the strength of the very document declaring it blocked.
+  for (const file of readdirSync(evidenceDir).filter(
+    (f) => f.endsWith('.md') && !/blocked|unobtained/i.test(f),
+  )) {
     haystack += readFileSync(path.join(evidenceDir, file), 'utf8')
   }
 }
