@@ -35,6 +35,7 @@ jobs:
       - run: pnpm run verify:self-contained
       - run: pnpm run check:lockfile
       - run: pnpm run check:readmes
+      - run: pnpm run check:citations
       # The same minimum the workspace's own verify-all-tarballs.mjs checks, so
       # a package that would publish without its bundle or its rule pack fails
       # here instead of on the registry.
