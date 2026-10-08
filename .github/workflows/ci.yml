@@ -29,6 +29,12 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm test
       - run: pnpm run build
+      # The family-standard gates. check:readmes also holds the four translated
+      # READMEs to the English one's section count, install command and
+      # configuration keys.
+      - run: pnpm run verify:self-contained
+      - run: pnpm run check:lockfile
+      - run: pnpm run check:readmes
       # The same minimum the workspace's own verify-all-tarballs.mjs checks, so
       # a package that would publish without its bundle or its rule pack fails
       # here instead of on the registry.

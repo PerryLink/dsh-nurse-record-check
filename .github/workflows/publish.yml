@@ -57,24 +57,44 @@ jobs:
       #
       # Once the package exists and a trusted publisher is configured for this
       # repository, replace this step with "npm publish --provenance".
-      - name: Stage the version on npm
+      # Try a direct publish first: a "Read and write" granular token still
+      # publishes straight to the registry and the version becomes installable
+      # immediately. A "Read and write (stage only)" token is refused with
+      # E_STAGE_REQUIRED, and for that one the version is staged instead - which
+      # also creates the package name the first time, but leaves the version
+      # uninstallable until a maintainer approves it with 2FA.
+      #
+      # Once the package exists and a trusted publisher is configured for this
+      # repository, the direct branch is what will do the work.
+      - name: Publish to npm
         shell: bash
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           version="$(node -p "require('./package.json').version")"
+          if npm view "dsh-nurse-record-check@${version}" version >/dev/null 2>&1; then
+            echo "dsh-nurse-record-check@${version} is already live on the registry; nothing to do"
+            exit 0
+          fi
           set +e
-          out="$(npm stage publish --provenance --access public 2>&1)"
+          out="$(npm publish --provenance --access public 2>&1)"
           status=$?
           set -e
           printf '%s\n' "$out"
-          if [ "$status" -ne 0 ]; then
-            if printf '%s' "$out" | grep -qE 'E409|previously published|already staged'; then
-              echo "dsh-nurse-record-check@${version} is already staged or published; treating this as done"
-              exit 0
-            fi
-            exit "$status"
+          if [ "$status" -eq 0 ]; then
+            echo "published dsh-nurse-record-check@${version} directly"
+            exit 0
           fi
+          if printf '%s' "$out" | grep -qE 'E_STAGE_REQUIRED|staging area'; then
+            echo "this token is stage-only; staging dsh-nurse-record-check@${version} instead"
+            npm stage publish --provenance --access public
+            exit $?
+          fi
+          if printf '%s' "$out" | grep -qE 'E409|EPUBLISHCONFLICT|previously published'; then
+            echo "dsh-nurse-record-check@${version} already exists; treating this as done"
+            exit 0
+          fi
+          exit "$status"
       # Advisory: say which of the two resting states the version is in, so the
       # run summary does not read as "published" when it is only queued.
       - name: Report the staged state (advisory)

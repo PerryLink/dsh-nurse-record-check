@@ -28,7 +28,15 @@ dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 
 ## Configuration
 
-Todos os parâmetros ajustáveis ficam no esquema Schemastery de `src/config.ts`, portanto mudam pelo `cordis.yml` sem editar código; os limites por regra ficam no pacote de regras sob `rules/`. As chaves e os parâmetros de cada regra estão em [README.md](README.md#configuration) (versão principal em inglês).
+Todos os parâmetros ajustáveis ficam no esquema Schemastery de `src/config.ts`, portanto mudam pelo `cordis.yml` sem editar código; os limites por regra ficam no pacote de regras sob `rules/`.
+
+| Chave | Tipo | Padrão | Descrição |
+|---|---|---|---|
+| `rulesFile` | string | `rules/nurse-record.yaml` | Caminho do pacote de regras, relativo à raiz do pacote |
+| `disabledRules` | string[] | `[]` | Ids de regras a desativar; cada uma aparece em `skipped` |
+| `onlyRules` | string[] | `[]` | Executar apenas estas regras; vazio executa todas |
+| `skipNotes` | string | `""` | Nota acrescentada a cada motivo de `skipped` |
+| `timeoutMs` | number | `120000` | Orçamento de tempo limite cooperativo da ferramenta |
 
 ## Material format
 

@@ -28,7 +28,15 @@ dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 
 ## Configuration
 
-सभी समायोज्य पैरामीटर `src/config.ts` की Schemastery स्कीमा में हैं, इसलिए कोड बदले बिना `cordis.yml` से बदले जा सकते हैं; प्रति-नियम सीमाएँ `rules/` के नियम-पैक में हैं। कुंजियाँ और प्रति-नियम पैरामीटर [README.md](README.md#configuration) (अंग्रेज़ी मुख्य संस्करण) में हैं।
+सभी समायोज्य पैरामीटर `src/config.ts` की Schemastery स्कीमा में हैं, इसलिए कोड बदले बिना `cordis.yml` से बदले जा सकते हैं; प्रति-नियम सीमाएँ `rules/` के नियम-पैक में हैं।
+
+| कुंजी | प्रकार | डिफ़ॉल्ट | विवरण |
+|---|---|---|---|
+| `rulesFile` | string | `rules/nurse-record.yaml` | नियम-पैक का पथ, पैकेज रूट के सापेक्ष |
+| `disabledRules` | string[] | `[]` | बंद करने वाले नियम id; प्रत्येक `skipped` में दिखता है |
+| `onlyRules` | string[] | `[]` | केवल ये नियम चलाएँ; खाली होने पर सभी नियम चलते हैं |
+| `skipNotes` | string | `""` | हर `skipped` कारण के आगे जोड़ी जाने वाली टिप्पणी |
+| `timeoutMs` | number | `120000` | उपकरण का सहकारी समय-सीमा बजट |
 
 ## Material format
 

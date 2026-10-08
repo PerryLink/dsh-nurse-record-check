@@ -28,7 +28,15 @@ dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 
 ## Configuration
 
-全部可调参数都在 `src/config.ts` 的 Schemastery schema 中，只改 `cordis.yml` 即可生效，无需改代码；逐条阈值在 `rules/` 下的规则库文件里。配置键与逐条规则的参数说明见 [README.md](README.md#configuration)（英文主版本）。
+全部可调参数都在 `src/config.ts` 的 Schemastery schema 中，只改 `cordis.yml` 即可生效，无需改代码；逐条阈值在 `rules/` 下的规则库文件里。
+
+| 键 | 类型 | 默认值 | 说明 |
+|---|---|---|---|
+| `rulesFile` | string | `rules/nurse-record.yaml` | 规则库文件路径，相对插件包根目录 |
+| `disabledRules` | string[] | `[]` | 要停用的规则 id 列表；每条都会出现在 `skipped` 中 |
+| `onlyRules` | string[] | `[]` | 只执行这些规则 id；留空表示执行全部规则 |
+| `skipNotes` | string | `""` | 附加到每条 `skipped` 说明后的备注 |
+| `timeoutMs` | number | `120000` | 工具协作式超时预算（毫秒） |
 
 ## Material format
 
