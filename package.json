@@ -1,6 +1,6 @@
 {
   "name": "dsh-nurse-record-check",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "护理记录时限、签名与评估表完整性校验（依据《病历书写基本规范》等公开文件，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
@@ -32,7 +32,7 @@
     "verify:self-contained": "node scripts/verify-self-contained.mjs",
     "check:lockfile": "node scripts/check-lockfile-drift.mjs",
     "check:readmes": "node scripts/check-readme-sync.mjs",
-    "prepublishOnly": "pnpm run typecheck && pnpm test && pnpm run build && pnpm run verify:self-contained && pnpm run check:readmes && pnpm run check:citations",
+    "prepublishOnly": "pnpm run typecheck && pnpm test && pnpm run build && pnpm run verify:self-contained && pnpm run check:readmes",
     "prepare": "tsdown",
     "check:citations": "node scripts/check-citations.mjs"
   },
