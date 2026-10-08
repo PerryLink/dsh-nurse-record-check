@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.2
+
+- Localise `locale/zh.json` and `locale/en.json`. Both still carried the
+  generator's placeholders, so the plugin named itself with the bare repository
+  name and described itself as scaffold output wherever the locale bundle is
+  read.
+- Correct `AGENTS.md`: the rule pack holds 12 rules, not 0, and it lives at
+  `rules/nurse-record.yaml`.
+
 ## 0.2.1
 
 - Ship `CHANGELOG.md` and `SECURITY.md` inside the package. `files` is an
