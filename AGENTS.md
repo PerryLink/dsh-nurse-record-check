@@ -14,7 +14,7 @@ dsh-plugin-guide skill and the official plugin contract; this file records repo-
 - `src/view.ts` — the model-facing projection of a report; `output.schema` in `index.ts` mirrors it.
 - `src/shared/` — the shared kit (ruleset loader, report shape, YAML subset, calendar arithmetic,
   wording guard, table helpers). Copied in, not imported: the package must be self-contained.
-- `rules/nurse-record-check.yaml` — the rule pack, 0 rules.
+- `rules/nurse-record.yaml` — the rule pack, 12 rules.
 - `rules/evidence/` — the clause-verification record for every citation the pack makes.
 - `tests/` — vitest; every rule has a paired compliant/violating fixture under `tests/fixtures/<RULE>/`.
 

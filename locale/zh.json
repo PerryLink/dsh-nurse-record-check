@@ -1,6 +1,6 @@
 {
   "meta": {
-    "title": "nurse-record-check",
-    "description": "由 dsh-plugin-dev 脚手架生成的 DeepSeek Harness 插件。"
+    "title": "护理记录核对",
+    "description": "护理记录时限、签名与评估表完整性校验（依据《病历书写基本规范》等公开文件，仅提示差异，不作出定性结论）"
   }
 }
