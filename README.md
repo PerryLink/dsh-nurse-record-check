@@ -1,4 +1,30 @@
-# dsh-nurse-record-check
+# dsh-nurse-record-check — Nursing record timeliness, sign-off and assessment-form completeness check
+
+`dsh-nurse-record-check` reads a machine-readable export of one inpatient episode — nursing entries, medical orders and completed assessment forms — and checks the timeliness, sign-off and assessment-form record of that nursing documentation (护理记录), reporting literal mismatches against cited clauses: that every nursing entry leaves a traceable recorder and a time, that every date and time is written in 24-hour form and can be read, that a rescue record's time is precise to the minute and its note is written up within 6 hours of the rescue ending, that a temporary order carries an execution time and the executing nurse's signature and that a cancelled order records its cancellation, that the first nursing assessment and the documentation frequency meet the thresholds the institution configures, that fall-risk and pressure-injury assessment forms are on file, and that the rounds interval matches the graded-nursing guidance for the care level the record states. A check that cannot run is listed in `skipped` instead of passing.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| A nursing entry came out of the ward system with no signing nurse. Is that reported? | Yes. `NR-001` reports every nursing entry that leaves no recorder identifier, and also a `nurseId` that does not match the configured staff-number pattern. It checks that the material leaves a recorder mark and a time, not how the electronic signature is technically implemented. |
+| One time value in the export will not parse. What does the rule do with it? | `NR-002` reports the value and expects a time written in 24-hour form and readable as `YYYY-MM-DD HH:mm`. A record whose time cannot be parsed is then left out of the later time-window comparisons, so it surfaces here rather than as a deadline finding — the rule checks that the time can be read, not that it is the true time. |
+| Our rescue record gives the date of the rescue but no clock time. | `NR-003` reports a `rescue` record whose time is precise only to the day, because the time of a rescue must be precise to the minute. The pack notes that the two documents it cites do not require the same thing — one requires 抢救时间 to the minute, the other the 记录时间 — and presents them together with each source marked separately. |
+| The rescue note was written up the next morning. Is that late? | `NR-004` compares the recorded time with `rescueEndedAt` and reports a gap longer than 6 hours; a note written before the rescue ended is reported too. With no `rescueEndedAt` there is nothing to compare, and the check reports that it could not run instead of passing. |
+| A temporary order was carried out, but the executing nurse's signature column is blank. | `NR-005` reports a temporary order whose execution record is missing the execution time or the executing nurse's signature. It applies to 临时医嘱 only — the long-term order sheet carries different content items and must not be read alike — and it does not check how long after execution the signature was made, because the pack found no signature deadline. |
+| Some rules come back as `skipped` rather than passing. What does that mean? | It means the check did not run, not that it passed. `NR-008` and `NR-012` ship with their thresholds empty (`maxAfterAdmission`, `intervalHours`), because the pack found no national threshold it could apply to nursing records — and it records that the 24 hours it did find belongs to the 入院记录 written by a physician and must not be carried over to the first nursing assessment — while `NR-011` likewise reports itself in `skipped` for 特级护理, where the guidance states no interval, and when there are fewer than two `rounds` entries to compare. |
+
+## Standards it follows
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| 《电子病历应用管理规范（试行）》 | 国卫办医发〔2017〕8号 | NR-001, NR-006, NR-010 |
+| 《病历书写基本规范》 | 卫医政发〔2010〕11号 | NR-002, NR-003, NR-004, NR-005, NR-007, NR-010, NR-012 |
+| 《医疗质量安全核心制度要点》 | 国卫医发〔2018〕8号 | NR-003, NR-004 |
+| 《卫生部办公厅关于在医疗机构推行表格式护理文书的通知》 | 卫办医政发〔2010〕125号 | NR-005 |
+| 《护理分级标准》 | WS/T 431—2023（全部代替 WS/T 431—2013；推荐性卫生行业标准，2024-02-01 施行） | NR-008 |
+| 《进一步改善护理服务行动计划（2023—2025年）》 | 国卫医政发〔2023〕16号 | NR-009 |
+| 《三级医院评审标准（2020年版）》 | 国卫医发〔2020〕26号 | NR-009 |
+| 《综合医院分级护理指导原则（试行）》 | 卫医政发〔2009〕49号 | NR-011 |
 
 **Boundary:** this plugin checks the timeliness, sign-off and assessment-form record of **nursing**
 documentation (护理记录) in an **inpatient** episode. It is not `dsh-medrec-qc` (which checks the
