@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.2.3
+
+- Rework the README first screen. The H1 now names what the plugin checks rather
+  than repeating the package name, and a question-and-answer table and a standards
+  table come before the boundary paragraph.
+
+  The substance is unchanged and the boundary paragraph is verbatim: in a
+  compliance tool that paragraph is what stops a wrong "pass" being read as
+  approval, so it moved rather than shrank. What changed is the order - a reader
+  or an extractor previously met eleven badges, an install command and a
+  disclaimer before learning what the plugin does. The Q&A rows are derived from
+  each plugin's own rules and the standards table from the rule pack's
+  `document`/`number` fields, so no answer and no standard is hand-typed.
+
+  All five languages were restructured together; `check:readmes` holds them to the
+  same section count, install command and configuration keys.
+
 ## 0.2.2
 
 - Localise `locale/zh.json` and `locale/en.json`. Both still carried the
