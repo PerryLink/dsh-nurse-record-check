@@ -1,6 +1,6 @@
 {
   "name": "dsh-nurse-record-check",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "护理记录时限、签名与评估表完整性校验（依据《病历书写基本规范》等公开文件，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
