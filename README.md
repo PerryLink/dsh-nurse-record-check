@@ -1,6 +1,14 @@
 # dsh-nurse-record-check — Nursing record timeliness, sign-off and assessment-form completeness check
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-nurse-record-check` reads a machine-readable export of one inpatient episode — nursing entries, medical orders and completed assessment forms — and checks the timeliness, sign-off and assessment-form record of that nursing documentation (护理记录), reporting literal mismatches against cited clauses: that every nursing entry leaves a traceable recorder and a time, that every date and time is written in 24-hour form and can be read, that a rescue record's time is precise to the minute and its note is written up within 6 hours of the rescue ending, that a temporary order carries an execution time and the executing nurse's signature and that a cancelled order records its cancellation, that the first nursing assessment and the documentation frequency meet the thresholds the institution configures, that fall-risk and pressure-injury assessment forms are on file, and that the rounds interval matches the graded-nursing guidance for the care level the record states. A check that cannot run is listed in `skipped` instead of passing.
+
+## What it looks like
+
+![Terminal demo of dsh-nurse-record-check: real output over its NR-007 fixture](https://raw.githubusercontent.com/PerryLink/dsh-nurse-record-check/main/docs/assets/dsh-nurse-record-check-demo.png)
+
+Real output from this plugin over its own `NR-007` test fixture — not a mock-up. The rule pack ships no invented quotations, so a finding names both the clause it applied and the fact that the clause text was not obtained.
 
 ## What it answers
 

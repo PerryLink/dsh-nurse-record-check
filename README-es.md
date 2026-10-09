@@ -1,6 +1,14 @@
 # dsh-nurse-record-check — Verificación de plazos, firmas y formularios de evaluación en el registro de enfermería
 
+[![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+
 `dsh-nurse-record-check` lee una exportación legible por máquina de un episodio de hospitalización —registros de enfermería, órdenes médicas y formularios de evaluación completados— y comprueba los plazos, las firmas y la conservación de formularios de esa documentación de enfermería (护理记录), informando de las diferencias literales frente a las cláusulas citadas: que cada registro de enfermería deje un responsable y una hora trazables, que toda fecha y hora esté escrita en formato de 24 horas y se pueda leer, que la hora de un registro de reanimación sea precisa al minuto y su nota se escriba dentro de las 6 horas siguientes al final de la reanimación, que una orden temporal lleve hora de ejecución y la firma de la enfermera que la ejecutó y que una orden anulada registre su anulación, que la primera evaluación de enfermería y la frecuencia de documentación cumplan los umbrales que configure la institución, que los formularios de riesgo de caídas y de lesión por presión estén archivados, y que el intervalo entre rondas de vigilancia corresponda a la guía de cuidados graduados del nivel de cuidados que el registro indica. Una comprobación que no puede ejecutarse se lista en `skipped` en lugar de pasar.
+
+## Cómo se ve la salida
+
+![Terminal demo of dsh-nurse-record-check: real output over its NR-007 fixture](https://raw.githubusercontent.com/PerryLink/dsh-nurse-record-check/main/docs/assets/dsh-nurse-record-check-demo.png)
+
+Salida real de este plugin sobre su propio fixture de prueba `NR-007` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
 
