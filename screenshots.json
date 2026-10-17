@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-nurse-record-check-hero.png",
+    "kind": "hero",
+    "alt": "dsh-nurse-record-check terminal output",
+    "caption": "Real dsh-nurse-record-check checker output; 29 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-nurse-record-check-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-nurse-record-check terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
