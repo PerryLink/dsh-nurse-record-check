@@ -2134,11 +2134,10 @@ export function runTableCheck(input: TableInput, ruleset: Ruleset, options: Tabl
     skipped.push({ rule: ruleId, reason: withNote(reason) })
     already.add(ruleId)
   }
-  for (const rule of ruleset.rules) {
-    if (disabled.has(rule.id) || fired.has(rule.id) || already.has(rule.id)) continue
-    if (only.size > 0 && !only.has(rule.id)) continue
-    skipped.push({ rule: rule.id, reason: withNote('材料满足该检查的前置条件且未发现差异条目') })
-  }
+  // A rule that ran and found nothing is NOT a skipped rule. The old code
+  // pushed it here with "材料满足...未发现差异", and the view then labelled the
+  // whole block "未执行的检查" — turning executed-clean into "did not run".
+  // `skipped` now carries only rules that genuinely could not execute.
   if (only.size > 0) {
     const notSelected = ruleset.rules.filter((rule) => !only.has(rule.id) && !disabled.has(rule.id))
     if (notSelected.length > 0) {

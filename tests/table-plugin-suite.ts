@@ -264,6 +264,13 @@ export function describeTablePlugin(suite: TablePluginSuite): void {
       expect(entries[0]?.reason).toContain('本机构口径')
     })
 
+    it('never lists an executed-clean rule as skipped', async () => {
+      const ruleset = await loadPack()
+      const table = suite.parseMaterial(JSON.stringify(suite.samples.good), 'inline')
+      const report = suite.runCheck(table, ruleset, runOptions({}))
+      expect(report.skipped.filter((entry) => entry.reason.includes('材料满足该检查的前置条件且未发现差异条目'))).toHaveLength(0)
+    })
+
     it('records the only-rules selection once', async () => {
       const ruleset = await loadPack()
       const first = ruleset.rules[0]

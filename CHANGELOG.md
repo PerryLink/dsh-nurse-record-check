@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.6 - 2026-10-18
+
+- Fix: a rule that executed and found no difference is no longer placed in `skipped`. The report view labels only genuinely unexecuted rules as “未执行的检查”; `skippedCount` no longer counts executed-clean rules.
+
+
 ## 0.2.5 - 2026-10-17
 
 - Compatibility: declare `engines.dsh` `>=0.2.1-0 <0.3.0`; move `@deepseek-ai/dsh-*` devDependencies to `0.2.1-rc.2`; add `@deepseek-ai/dsh-working-directory`.
@@ -64,4 +69,5 @@
 - Five-language READMEs hold the same section count and the same configuration keys.
 - Rule pack: 0 rules across XX-001..XX-000.
 - Licensed Apache-2.0.
+
 
