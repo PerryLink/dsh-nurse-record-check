@@ -86,14 +86,21 @@ for (const block of ruleBlocks(readFileSync(packPath, 'utf8'))) {
   // The id line is "  - id: XX-001", so the list dash sits between the
   // indentation and the key; a plain "^s+id:" never matches it.
   const ruleId = (/^\s*-\s+id:\s*(\S+)/m.exec(block) ?? [])[1] ?? '?'
-  const excerpt = fieldOf(block, 'excerpt')
-  if (excerpt === '' || isPlaceholder(excerpt)) {
+  // Every excerpt field counts: the primary basis AND each alsoBasis entry.
+  const excerpts = [...block.matchAll(/^\s+excerpt:\s*(.*)$/gm)].map((m) => m[1].trim())
+  if (excerpts.length === 0) {
     placeholders++
     continue
   }
-  for (const segment of segmentsOf(excerpt)) {
-    checked++
-    if (!H.includes(normalise(segment))) untraceable.push(keyOf(ruleId, segment))
+  for (const excerpt of excerpts) {
+    if (excerpt === '' || isPlaceholder(excerpt)) {
+      placeholders++
+      continue
+    }
+    for (const segment of segmentsOf(excerpt)) {
+      checked++
+      if (!H.includes(normalise(segment))) untraceable.push(keyOf(ruleId, segment))
+    }
   }
 }
 

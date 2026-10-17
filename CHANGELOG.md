@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.7] - 2026-10-18
+
+### Fixed
+
+- **`check:citations` checks every `excerpt`, including `alsoBasis`.** The gate read only the first excerpt per rule; this pack had additional `alsoBasis` quotations that were never checked. It now reports the complete segment count.
+
 ## 0.2.6 - 2026-10-18
 
 - Fix: a rule that executed and found no difference is no longer placed in `skipped`. The report view labels only genuinely unexecuted rules as “未执行的检查”; `skippedCount` no longer counts executed-clean rules.
