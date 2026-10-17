@@ -44,10 +44,10 @@ mismatches against cited clauses; it never decides whether an episode of care wa
 
 | Superficie | Estado |
 |---|---|
-| Harness | Rango de peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verificado para aceptar tanto `0.2.0-rc.2` como `0.2.1-alpha.1`. **No se declara `engines.dsh`**: no tiene lector y no puede rechazar ningún host |
+| Harness | Rango de peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verificado para aceptar tanto `0.2.0-rc.2` como `0.2.1-rc.2`. **`engines.dsh` se declara como `>=0.2.1-0 <0.3.0`** y el host lo aplica desde 0.2.1 |
 | Node | `^22.19.0 || >=24.0.0` |
 | Plataformas | Todas (ESM puro; sin código nativo, sin red, sin llamada al modelo) |
-| Modo de herramienta | Funciona en `native`, `ptc` y `both`; para un directorio completo use `ptc` |
+| Modo de herramienta | Funciona en `native` y `ptc`; para un directorio completo use `ptc` |
 
 ## What it does
 
