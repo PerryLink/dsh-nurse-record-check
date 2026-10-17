@@ -4,6 +4,13 @@
 
 `dsh-nurse-record-check` lê uma exportação legível por máquina de um episódio de internamento —registos de enfermagem, ordens médicas e formulários de avaliação preenchidos— e verifica os prazos, as assinaturas e a conservação de formulários dessa documentação de enfermagem (护理记录), assinalando as diferenças literais face às cláusulas citadas: que cada registo de enfermagem deixe um responsável e uma hora rastreáveis, que toda a data e hora esteja escrita em formato de 24 horas e possa ser lida, que a hora de um registo de reanimação seja precisa ao minuto e a sua nota seja escrita nas 6 horas seguintes ao fim da reanimação, que uma ordem temporária traga hora de execução e a assinatura da enfermeira que a executou e que uma ordem anulada registe o seu cancelamento, que a primeira avaliação de enfermagem e a frequência de documentação cumpram os limiares que a instituição configurar, que os formulários de risco de queda e de lesão por pressão estejam arquivados, e que o intervalo entre rondas de vigilância corresponda à orientação de cuidados graduados do nível de cuidados indicado no registo. Uma verificação que não pode ser executada é listada em `skipped` em vez de passar.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-nurse-record-check
+dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
+```
+
 ## Como é a saída
 
 ![Terminal demo of dsh-nurse-record-check: real output over its NR-007 fixture](https://raw.githubusercontent.com/PerryLink/dsh-nurse-record-check/main/docs/assets/dsh-nurse-record-check-hero.png)
@@ -54,13 +61,6 @@ mismatches against cited clauses; it never decides whether an episode of care wa
 ## What it does
 
 A tabela de regras, os campos e o comportamento detalhado estão em [README.md](README.md#what-it-does) (versão principal em inglês). O plugin apenas lista divergências literais frente às cláusulas citadas e indica em `skipped` cada verificação que não pôde ser executada.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-nurse-record-check
-dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
-```
 
 ## Configuration
 

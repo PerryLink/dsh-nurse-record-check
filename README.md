@@ -4,6 +4,13 @@
 
 `dsh-nurse-record-check` reads a machine-readable export of one inpatient episode — nursing entries, medical orders and completed assessment forms — and checks the timeliness, sign-off and assessment-form record of that nursing documentation (护理记录), reporting literal mismatches against cited clauses: that every nursing entry leaves a traceable recorder and a time, that every date and time is written in 24-hour form and can be read, that a rescue record's time is precise to the minute and its note is written up within 6 hours of the rescue ending, that a temporary order carries an execution time and the executing nurse's signature and that a cancelled order records its cancellation, that the first nursing assessment and the documentation frequency meet the thresholds the institution configures, that fall-risk and pressure-injury assessment forms are on file, and that the rounds interval matches the graded-nursing guidance for the care level the record states. A check that cannot run is listed in `skipped` instead of passing.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-nurse-record-check
+dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-nurse-record-check: real output over its NR-007 fixture](https://raw.githubusercontent.com/PerryLink/dsh-nurse-record-check/main/docs/assets/dsh-nurse-record-check-hero.png)
@@ -74,13 +81,6 @@ finding names the clause it came from.
 
 Two rules ship unconfigured on purpose, because no national threshold exists for them. They report
 themselves in `skipped` and never silently pass.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-nurse-record-check
-dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
-```
 
 ## Configuration
 

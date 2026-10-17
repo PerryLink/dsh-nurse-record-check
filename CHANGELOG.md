@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.9] - 2026-10-18
+
+### Changed
+
+- Move the Install section to the first screen in all five READMEs.
+
 ## [0.2.8] - 2026-10-18
 
 ### Changed

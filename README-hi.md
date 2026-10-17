@@ -4,6 +4,13 @@
 
 `dsh-nurse-record-check` एक भर्ती प्रकरण (inpatient episode) के मशीन-पठनीय निर्यात को पढ़ता है — नर्सिंग प्रविष्टियाँ, चिकित्सकीय आदेश और भरे गए मूल्यांकन प्रपत्र — और उस नर्सिंग दस्तावेज़ (护理记录) की समय-सीमा, हस्ताक्षर और मूल्यांकन-प्रपत्र की जाँच करता है, तथा उद्धृत धाराओं के विरुद्ध शाब्दिक अंतर दर्ज करता है: कि हर नर्सिंग प्रविष्टि में पता लगाने योग्य रिकॉर्डर और समय हो, कि हर दिनांक और समय 24-घंटे के प्रारूप में लिखा हो और पढ़ा जा सके, कि पुनर्जीवन (rescue) रिकॉर्ड का समय मिनट तक सटीक हो और उसका नोट पुनर्जीवन समाप्त होने के 6 घंटे के भीतर लिखा गया हो, कि अस्थायी आदेश (temporary order) में निष्पादन समय और निष्पादन करने वाली नर्स का हस्ताक्षर हो तथा रद्द किए गए आदेश में रद्दीकरण दर्ज हो, कि प्रथम नर्सिंग मूल्यांकन और दस्तावेज़ीकरण की आवृत्ति संस्थान द्वारा कॉन्फ़िगर की गई सीमाओं के अनुरूप हो, कि गिरने के जोखिम और दबाव-घाव (pressure injury) के मूल्यांकन प्रपत्र अभिलेख में उपलब्ध हों, और यह कि गश्त (rounds) का अंतराल रिकॉर्ड में दर्ज देखभाल-स्तर के श्रेणीबद्ध नर्सिंग मार्गदर्शन से मेल खाता हो। जो जाँच चल न सके वह पास होने के बजाय `skipped` में दर्ज की जाती है।
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-nurse-record-check
+dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
+```
+
 ## आउटपुट कैसा दिखता है
 
 ![Terminal demo of dsh-nurse-record-check: real output over its NR-007 fixture](https://raw.githubusercontent.com/PerryLink/dsh-nurse-record-check/main/docs/assets/dsh-nurse-record-check-hero.png)
@@ -54,13 +61,6 @@ mismatches against cited clauses; it never decides whether an episode of care wa
 ## What it does
 
 नियम-सूची, फ़ील्ड और विस्तृत व्यवहार [README.md](README.md#what-it-does) (अंग्रेज़ी मुख्य संस्करण) में हैं। यह प्लगइन केवल उद्धृत धाराओं के सामने शाब्दिक अंतर सूचीबद्ध करता है और हर न चल पाई जाँच को `skipped` में बताता है।
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-nurse-record-check
-dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
-```
 
 ## Configuration
 
