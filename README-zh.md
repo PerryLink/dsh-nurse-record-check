@@ -45,11 +45,7 @@ dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 | 《三级医院评审标准（2020年版）》 | 国卫医发〔2020〕26号 | NR-009 |
 | 《综合医院分级护理指导原则（试行）》 | 卫医政发〔2009〕49号 | NR-011 |
 
-**Boundary:** this plugin checks the timeliness, sign-off and assessment-form record of **nursing**
-documentation (护理记录) in an **inpatient** episode. It is not `dsh-medrec-qc` (which checks the
-front sheet of the medical record and its internal contradictions), not a nursing-quality
-scorecard, and not a clinical decision aid. It reads a machine-readable export and reports literal
-mismatches against cited clauses; it never decides whether an episode of care was appropriate.
+**边界（中文译文，以英文原文为准）：** 本插件核对一次**住院**诊疗中**护理**文书（护理记录）的及时性、签名与评估表记录。它不是 `dsh-medrec-qc`（后者核对病案首页及其内部矛盾），不是护理质量评分卡，也不是临床决策辅助工具。它读取机器可读的导出数据，并报出与所引条款之间的字面不符；它从不判定某次诊疗过程是否恰当。
 
 ## Compatibility
 
