@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.10] - 2026-10-18
+
+### Changed
+
+- Move `tsdown` and `typescript` from runtime dependencies to devDependencies; a published checker no longer pulls a build chain into the profile. Same rollout as the 0.2.11 pilot.
+
 ## [0.2.9] - 2026-10-18
 
 ### Changed
