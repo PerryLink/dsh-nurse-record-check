@@ -20,13 +20,19 @@ dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 
 ## Cómo se ve la salida
 
-![Terminal demo of dsh-nurse-record-check: real output over its NR-007 fixture](https://raw.githubusercontent.com/PerryLink/dsh-nurse-record-check/main/docs/assets/dsh-nurse-record-check-hero.png)
+![Diagrama de flujo de dsh-nurse-record-check: documento → reglas → hallazgos.](docs/assets/dsh-nurse-record-check-flow.svg)
 
-![Animated terminal demo of dsh-nurse-record-check](https://raw.githubusercontent.com/PerryLink/dsh-nurse-record-check/main/docs/assets/dsh-nurse-record-check-demo.gif)
+*Resumen del flujo: documento → reglas → hallazgos. Los ejemplos siguientes usan la superficie de comandos real.*
+
 
 Salida real de este plugin sobre su propio fixture de prueba `NR-007` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
+
+### Ejemplos
+
+La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
+
 
 | Usted pregunta | Qué responde |
 |---|---|
