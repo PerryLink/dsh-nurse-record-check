@@ -30,6 +30,41 @@ dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 下表是示例集：第一行是详细走查，其余行是简短案例。
 
 
+#### 详细输出
+
+**工具** `nurse_record_check`
+
+**输入**
+
+~~~yaml
+records:
+  - id: REC-0001
+    kind: general
+    recordedAt: "2026-03-15 09:00"
+    nurseId: N10231
+  - id: REC-0002
+    kind: general
+    recordedAt: "2026-03-15 11:00"
+    nurseName: 李护士
+~~~
+ 
+**输出**
+
+~~~json
+{
+  "id": "dsh-nurse-record-check.NR-001.185cc700",
+  "ruleId": "NR-001",
+  "severity": "error",
+  "locator": {
+    "cell": "REC-0002"
+  },
+  "found": "记录无签名护士标识",
+  "expected": "每条护理记录均应有签名"
+}
+~~~
+
+*来源 `dsh-nurse-record-check/tests/fixtures/NR-001/NR-001-unsafe.yaml`*
+
 | 你会问 | 它怎么答 |
 |---|---|
 | 有一条护理记录导出时没有签名护士，会被报出吗？ | 会。`NR-001` 会报出没有留下记录人标识的护理记录，也会报出不符合所配置工号格式的 `nurseId`。它只核对材料是否留下记录人标识与时间，不校验电子签名的技术实现。 |

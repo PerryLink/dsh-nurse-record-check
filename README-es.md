@@ -35,6 +35,41 @@ Salida real de este plugin sobre su propio fixture de prueba `NR-007` — no es 
 La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
 
 
+#### Salida detallada
+
+**Herramienta** `nurse_record_check`
+
+**Entrada**
+
+~~~yaml
+records:
+  - id: REC-0001
+    kind: general
+    recordedAt: "2026-03-15 09:00"
+    nurseId: N10231
+  - id: REC-0002
+    kind: general
+    recordedAt: "2026-03-15 11:00"
+    nurseName: 李护士
+~~~
+ 
+**Salida**
+
+~~~json
+{
+  "id": "dsh-nurse-record-check.NR-001.185cc700",
+  "ruleId": "NR-001",
+  "severity": "error",
+  "locator": {
+    "cell": "REC-0002"
+  },
+  "found": "记录无签名护士标识",
+  "expected": "每条护理记录均应有签名"
+}
+~~~
+
+*Observado en `dsh-nurse-record-check/tests/fixtures/NR-001/NR-001-unsafe.yaml`*
+
 | Usted pregunta | Qué responde |
 |---|---|
 | Un registro de enfermería salió del sistema de planta sin enfermera firmante. ¿Se informa de ello? | Sí. `NR-001` informa de todo registro de enfermería que no deja un identificador de responsable y también de un `nurseId` que no coincide con el formato de número de personal configurado. Comprueba que el material deje una marca de responsable y una hora, no cómo se implementa técnicamente la firma electrónica. |

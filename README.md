@@ -33,6 +33,41 @@ dsh --profile <name> --dump-config | grep 'dsh-nurse-record-check'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `nurse_record_check`
+
+**Input**
+
+~~~yaml
+records:
+  - id: REC-0001
+    kind: general
+    recordedAt: "2026-03-15 09:00"
+    nurseId: N10231
+  - id: REC-0002
+    kind: general
+    recordedAt: "2026-03-15 11:00"
+    nurseName: 李护士
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-nurse-record-check.NR-001.185cc700",
+  "ruleId": "NR-001",
+  "severity": "error",
+  "locator": {
+    "cell": "REC-0002"
+  },
+  "found": "记录无签名护士标识",
+  "expected": "每条护理记录均应有签名"
+}
+~~~
+
+*Observed from `dsh-nurse-record-check/tests/fixtures/NR-001/NR-001-unsafe.yaml`*
+
 | You ask | What it answers |
 |---|---|
 | A nursing entry came out of the ward system with no signing nurse. Is that reported? | Yes. `NR-001` reports every nursing entry that leaves no recorder identifier, and also a `nurseId` that does not match the configured staff-number pattern. It checks that the material leaves a recorder mark and a time, not how the electronic signature is technically implemented. |
