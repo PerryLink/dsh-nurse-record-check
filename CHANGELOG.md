@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.2.11] - 2026-10-19
+
+### Changed
+
+- Added the missing Apache-2.0 LICENSE and normalized package metadata.
+
 ## [0.2.10] - 2026-10-18
 
 ### Changed
