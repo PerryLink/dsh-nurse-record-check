@@ -8,6 +8,7 @@ dsh plugin --profile <name> add dsh-nurse-record-check
 
 
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
+[![dshfind](https://dshfind.com/api/badge/PerryLink/dsh-nurse-record-check?metric=downloads)](https://dshfind.com/en/plugins/PerryLink/dsh-nurse-record-check?ref=badge)
 
 `dsh-nurse-record-check` lê uma exportação legível por máquina de um episódio de internamento —registos de enfermagem, ordens médicas e formulários de avaliação preenchidos— e verifica os prazos, as assinaturas e a conservação de formulários dessa documentação de enfermagem (护理记录), assinalando as diferenças literais face às cláusulas citadas: que cada registo de enfermagem deixe um responsável e uma hora rastreáveis, que toda a data e hora esteja escrita em formato de 24 horas e possa ser lida, que a hora de um registo de reanimação seja precisa ao minuto e a sua nota seja escrita nas 6 horas seguintes ao fim da reanimação, que uma ordem temporária traga hora de execução e a assinatura da enfermeira que a executou e que uma ordem anulada registe o seu cancelamento, que a primeira avaliação de enfermagem e a frequência de documentação cumpram os limiares que a instituição configurar, que os formulários de risco de queda e de lesão por pressão estejam arquivados, e que o intervalo entre rondas de vigilância corresponda à orientação de cuidados graduados do nível de cuidados indicado no registo. Uma verificação que não pode ser executada é listada em `skipped` em vez de passar.
 
