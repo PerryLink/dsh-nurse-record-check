@@ -279,6 +279,52 @@ export function describeTablePlugin(suite: TablePluginSuite): void {
       const selection = report.skipped.filter((entry) => entry.reason.includes('only 参数'))
       expect(selection).toHaveLength(1)
     })
+
+    // The two tests below exist because the suite used to check only the
+    // *reporting* of rule selection (the test above), never that selection
+    // filtered execution. It did not: `runChecks` ignored both sets, so the
+    // report carried findings for every rule while the skipped section claimed
+    // the same rules had not run - two halves that are each individually
+    // plausible, which is why nothing failed. A caller asking for one rule got
+    // all of them. The violating half of each pair is used so the assertion
+    // cannot pass vacuously on a sample that fires nothing.
+    it('runs only the rule that was selected', async () => {
+      const ruleset = await loadPack()
+      // Selecting the fixture's own rule would pass even without filtering, since
+      // that fixture fires mainly its own rule. So the fixture for rule A is run
+      // with only rule B selected: nothing from A may appear, whatever B does.
+      for (const directory of await ruleDirectories()) {
+        const cases = await readCases(directory)
+        const outsider = ruleset.rules.find((rule) => rule.id !== cases.ruleId)
+        const pair = cases.pairs.find((candidate) => candidate.expect.count > 0)
+        if (pair === undefined || outsider === undefined) continue
+        const material = await readFile(join(fixturesRoot, directory, pair.material), 'utf8')
+        const report = suite.runCheck(
+          suite.parseMaterial(material, pair.material),
+          ruleset,
+          runOptions({ onlyRules: [outsider.id], overrides: cases.configure }),
+        )
+        const intruders = report.issues.filter((issue) => issue.ruleId !== outsider.id).map((issue) => issue.ruleId)
+        expect(intruders, `${directory}: onlyRules=[${outsider.id}] must exclude ${cases.ruleId}`).toEqual([])
+        expect(issuesOf(report, cases.ruleId).length, `${directory}: ${cases.ruleId} was not selected and must not run`).toBe(0)
+      }
+    })
+
+    it('does not run a disabled rule', async () => {
+      const ruleset = await loadPack()
+      for (const directory of await ruleDirectories()) {
+        const cases = await readCases(directory)
+        const pair = cases.pairs.find((candidate) => candidate.expect.count > 0)
+        if (pair === undefined) continue
+        const material = await readFile(join(fixturesRoot, directory, pair.material), 'utf8')
+        const report = suite.runCheck(
+          suite.parseMaterial(material, pair.material),
+          ruleset,
+          runOptions({ disabledRules: [cases.ruleId], overrides: cases.configure }),
+        )
+        expect(issuesOf(report, cases.ruleId).length, `${directory}: a disabled rule must not fire`).toBe(0)
+      }
+    })
   })
 
   describe('report rendering', () => {
