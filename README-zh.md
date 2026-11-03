@@ -1,6 +1,6 @@
 # dsh-nurse-record-check — 护理记录时限、签名与评估表完整性校验
 
-## 快速试跑（1 分钟）
+### 快速试跑（1 分钟）
 
 ```bash
 node samples/quickstart/run.mjs --check
