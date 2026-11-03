@@ -1,0 +1,3 @@
+$ node samples/quickstart/run.mjs
+nurse_record_check: 3 issue(s) — error 1, warn 2, info 0
+skipped: 10
