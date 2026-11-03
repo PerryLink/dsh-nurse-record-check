@@ -1,0 +1,10 @@
+{
+  "tool": "nurse_record_check",
+  "issueCount": 3,
+  "summary": {
+    "error": 1,
+    "warn": 2,
+    "info": 0
+  },
+  "skippedCount": 10
+}
