@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-flow-dark.svg">
-  <img src="docs/assets/dsh-nurse-record-check-flow-light.svg" width="100%" alt="dsh-nurse-record-check 数据流：材料（JSON/YAML）→ nurse_record_check → 规则库 → 逐条差异；无法执行的检查进入 skipped">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-nurse-record-check-hero-zh-light.webp" width="100%" alt="dsh-nurse-record-check 横幅：左侧是插件名与价值说明；右侧是一张护理记录单，两条一般护理记录中 REC-0002 缺记录人，被标为 NR-001 error；跌倒与压力性损伤评估表未留存，标为 NR-009 warn ×2；下方是 NR-001 判定卡（found / expected / basis 与所引第十四条）和 skipped 抽屉（NR-008 maxAfterAdmission 与 NR-012 intervalHours 未配置，共 10 条）；本次样例 3 条差异（error 1 / warn 2），空 issues 不等于通过，结论留给审核人。">
 </picture>
 
 # dsh-nurse-record-check
@@ -36,6 +36,11 @@ dsh plugin --profile <name> add dsh-nurse-record-check
 ## 它是什么
 
 `dsh-nurse-record-check` 读取一次住院过程的机器可读导出材料——护理记录、医嘱与已完成的评估表——核对这份护理记录的时限、签名与评估表留存，逐条报出与所引条款的字面差异：每条护理记录是否留下可追溯的记录人与时间、日期与时间是否按 24 小时制书写且可解析、抢救记录的时间是否精确到分钟且是否在抢救结束后 6 小时内补记、临时医嘱是否记录执行时间与执行护士签名、取消的医嘱是否记录取消信息、首次护理评估与护理记录书写频次是否满足本机构配置的阈值、跌倒与压力性损伤风险评估表是否留存、巡视间隔是否与该记录所载护理级别对应的分级护理指导原则相符。无法执行的检查计入 `skipped`，不会静默通过。规则库是数据不是代码：替换 `rules/nurse-record.yaml` 就能换一套规则集，加载期会校验每条引文是否逐字、依据等级是否被抬高；检查核心是纯函数，不联网、不调用模型，材料由你交给工具，原件不会被修改。日常核对不需要命令行：把材料交给会话里的 `nurse_record_check` 工具即可。
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-nurse-record-check-flow-v5-light.svg" width="100%" alt="dsh-nurse-record-check 结构图：12 条规则排成矩阵，4 个输入面（护理记录 records / 医嘱 orders / 评估表 assessments / 本次住院 episode）各有一条纵向总线，圆点标出每条规则实际读取的集合；右侧是依据类型对严重级的上限（直接条款 ≤ error、原则推论 ≤ warn、机构配置 ≤ info）、两条出厂留空的阈值（NR-008 maxAfterAdmission / NR-012 intervalHours）与引文底座（8 份文件、20 条逐字引文）；底部是一次样例运行的报告契约：issues 带 ruleId / severity / locator / found / expected / basis，skipped 逐条附原因，空 issues 不等于通过。">
+</picture>
 
 ## 三步上手
 
@@ -358,7 +363,7 @@ pnpm pack                         # 发布 tarball
 | `tests/fixtures/<RULE>/` | 每条规则配对的合规/违规夹具 |
 | `samples/quickstart/` | 一分钟离线样例 |
 
-配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow，输出深浅两版 SVG），可重复执行；脚本会探测 CJK 字体，缺字体时报错退出而不是渲染成方块。
+配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Pillow 生成本地化 hero、手写 SVG 画结构图），可重复执行；本插件无 UI，结构图只用命令面 token、规则/字段标识与简短英文注记。脚本会探测 CJK 字体，缺字体时报错退出而不是渲染成方块。
 
 Topics：`deepseek-harness`, `dsh`, `dsh-plugin`, `cordis`, `nurse`, `record`
 

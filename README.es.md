@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-flow-dark.svg">
-  <img src="docs/assets/dsh-nurse-record-check-flow-light.svg" width="100%" alt="Flujo de datos de dsh-nurse-record-check: material (JSON/YAML) → nurse_record_check → paquete de reglas → hallazgos; las comprobaciones que no pueden ejecutarse van a skipped">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-nurse-record-check-hero-en-light.webp" width="100%" alt="Banner de dsh-nurse-record-check: a la izquierda, el nombre y su valor; a la derecha, una hoja de registro de enfermería donde REC-0002 no tiene profesional firmante y se marca como NR-001 error, y faltan los formularios de riesgo de caídas y de úlceras por presión (NR-009 warn ×2); debajo, la tarjeta de hallazgo NR-001 (found / expected / basis, con el artículo 14 citado) y el cajón skipped (NR-008 maxAfterAdmission y NR-012 intervalHours sin configurar, 10 omitidas); la ejecución de ejemplo da 3 diferencias (1 error / 2 warn); una lista de diferencias vacía no es un aprobado y la decisión queda en manos de la persona revisora.">
 </picture>
 
 # dsh-nurse-record-check
@@ -36,6 +36,11 @@ dsh plugin --profile <name> add dsh-nurse-record-check
 ## Qué es
 
 `dsh-nurse-record-check` lee una exportación legible por máquina de un episodio de hospitalización —registros de enfermería, órdenes médicas y formularios de evaluación completados— y comprueba los plazos, las firmas y la conservación de formularios de esa documentación de enfermería, informando de las diferencias literales frente a las cláusulas citadas: que cada registro de enfermería deje un responsable y una hora trazables, que toda fecha y hora esté escrita en formato de 24 horas y se pueda leer, que la hora de un registro de reanimación sea precisa al minuto y su nota se escriba dentro de las 6 horas siguientes al final de la reanimación, que una orden temporal lleve hora de ejecución y la firma de la enfermera que la ejecutó y que una orden anulada registre su anulación, que la primera evaluación de enfermería y la frecuencia de documentación cumplan los umbrales que configure la institución, que los formularios de riesgo de caídas y de lesión por presión estén archivados, y que el intervalo entre rondas de vigilancia corresponda a la guía de cuidados graduados del nivel de cuidados que el registro indica. Una comprobación que no puede ejecutarse se lista en `skipped` en lugar de pasar. El paquete de reglas es dato, no código: sustituir `rules/nurse-record.yaml` cambia el conjunto de reglas, y el cargador rechaza un paquete cuyos extractos no sean literales o cuya severidad exagere su base. El núcleo de la comprobación es una función pura —sin red ni llamada al modelo—: usted entrega el material y el original nunca se modifica. La comprobación diaria no requiere línea de comandos: entregue el material a la herramienta `nurse_record_check` en una sesión.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-nurse-record-check-flow-v5-light.svg" width="100%" alt="Estructura de dsh-nurse-record-check: doce reglas en una matriz frente a cuatro superficies de entrada (registros, órdenes, evaluaciones, episodio), con un bus vertical por superficie y un punto donde la regla realmente lee esa colección; la barra derecha fija el techo según el tipo de fundamento (directo ≤ error, principio ≤ warn, configuración local ≤ info), los dos umbrales que salen vacíos (NR-008 maxAfterAdmission, NR-012 intervalHours) y la base de citas (8 documentos, 20 extractos literales); la barra inferior es el contrato del informe: las diferencias llevan ruleId / severity / locator / found / expected / basis, las comprobaciones omitidas llevan motivo, y una lista vacía no es un aprobado.">
+</picture>
 
 ## Instalación en tres pasos
 
@@ -358,7 +363,7 @@ Para refrescar el kit compartido cuando haga falta: `node ../scripts/sync-shared
 | `tests/fixtures/<RULE>/` | fixtures emparejados conforme/infractor por regla |
 | `samples/quickstart/` | ejemplo sin conexión de un minuto |
 
-Las imágenes del README se generan con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow; SVG claro y oscuro) y se pueden reejecutar sin riesgo. El script detecta la fuente CJK y aborta en lugar de dibujar cajas vacías.
+Las imágenes del README se generan con [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Pillow para el hero localizado y SVG escrito a mano para el diagrama de estructura) y se pueden reejecutar sin riesgo. El plugin no tiene UI; el diagrama usa tokens de la superficie de comandos, identificadores de reglas/campos y anotaciones breves en inglés. El script detecta la fuente CJK y aborta en lugar de dibujar cajas vacías.
 
 Topics: `deepseek-harness`, `dsh`, `dsh-plugin`, `cordis`, `nurse`, `record`
 

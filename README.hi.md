@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-flow-dark.svg">
-  <img src="docs/assets/dsh-nurse-record-check-flow-light.svg" width="100%" alt="dsh-nurse-record-check डेटा प्रवाह: सामग्री (JSON/YAML) → nurse_record_check → नियम-पैक → निष्कर्ष; जो जाँच चल न सकें वे skipped में जाती हैं">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-nurse-record-check-hero-en-light.webp" width="100%" alt="dsh-nurse-record-check बैनर: बाईं ओर प्लगइन का नाम और मूल्य; दाईं ओर नर्सिंग रिकॉर्ड शीट जिसमें REC-0002 पर हस्ताक्षर करने वाली नर्स नहीं है और उसे NR-001 error के रूप में चिह्नित किया गया है, तथा फ़ॉल-रिस्क और प्रेशर-अल्सर मूल्यांकन फ़ॉर्म मौजूद नहीं हैं (NR-009 warn ×2); नीचे NR-001 निष्कर्ष कार्ड (found / expected / basis, उद्धृत अनुच्छेद 14 के साथ) और skipped दराज़ (NR-008 maxAfterAdmission और NR-012 intervalHours कॉन्फ़िगर नहीं, 10 skipped); नमूना रन में 3 अंतर (1 error / 2 warn); खाली अंतर-सूची स्वीकृति नहीं है और अंतिम निर्णय समीक्षक का है।">
 </picture>
 
 # dsh-nurse-record-check
@@ -36,6 +36,11 @@ dsh plugin --profile <name> add dsh-nurse-record-check
 ## यह क्या है
 
 `dsh-nurse-record-check` एक भर्ती प्रकरण के मशीन-पठनीय निर्यात को पढ़ता है — नर्सिंग प्रविष्टियाँ, चिकित्सकीय आदेश और भरे गए मूल्यांकन प्रपत्र — और उस नर्सिंग दस्तावेज़ की समय-सीमा, हस्ताक्षर और मूल्यांकन-प्रपत्र की उपलब्धता जाँचता है, तथा उद्धृत धाराओं के विरुद्ध शाब्दिक अंतर दर्ज करता है: कि हर नर्सिंग प्रविष्टि में पता लगाने योग्य रिकॉर्डर और समय हो, कि हर दिनांक और समय 24-घंटे के प्रारूप में लिखा हो और पढ़ा जा सके, कि पुनर्जीवन (rescue) रिकॉर्ड का समय मिनट तक सटीक हो और उसका नोट पुनर्जीवन समाप्त होने के 6 घंटे के भीतर लिखा गया हो, कि अस्थायी आदेश में निष्पादन समय और निष्पादन करने वाली नर्स का हस्ताक्षर हो तथा रद्द किए गए आदेश में रद्दीकरण दर्ज हो, कि प्रथम नर्सिंग मूल्यांकन और दस्तावेज़ीकरण की आवृत्ति संस्थान द्वारा कॉन्फ़िगर की गई सीमाओं के अनुरूप हो, कि गिरने के जोखिम और दबाव-घाव के मूल्यांकन प्रपत्र अभिलेख में उपलब्ध हों, और यह कि गश्त का अंतराल रिकॉर्ड में दर्ज देखभाल-स्तर के श्रेणीबद्ध नर्सिंग मार्गदर्शन से मेल खाता हो। जो जाँच चल न सके वह पास होने के बजाय `skipped` में दर्ज की जाती है। नियम-पैक डेटा है, कोड नहीं: `rules/nurse-record.yaml` बदलने से नियम-समुच्चय बदल जाता है, और लोडर ऐसे पैक को अस्वीकार करता है जिसके उद्धरण शब्दशः न हों या जिसकी गंभीरता अपने आधार से बढ़ी हुई हो। जाँच का मुख्य भाग शुद्ध फ़ंक्शन है — कोई नेटवर्क नहीं, कोई मॉडल कॉल नहीं; सामग्री आप देते हैं और मूल दस्तावेज़ कभी नहीं बदला जाता। रोज़ की जाँच के लिए कमांड लाइन की ज़रूरत नहीं: सामग्री सत्र में `nurse_record_check` उपकरण को दें।
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-nurse-record-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-nurse-record-check-flow-v5-light.svg" width="100%" alt="dsh-nurse-record-check संरचना: बारह नियम चार इनपुट सतहों (records, orders, assessments, episode) के सामने एक मैट्रिक्स में, हर सतह के लिए एक ऊर्ध्वाधर बस और एक बिंदु जहाँ नियम वास्तव में वह संग्रह पढ़ता है; दाईं पट्टी आधार के प्रकार की सीमा (direct ≤ error, principle ≤ warn, institutional ≤ info), दो खाली थ्रेशोल्ड (NR-008 maxAfterAdmission, NR-012 intervalHours) और उद्धरण आधार (8 दस्तावेज़, 20 शब्दशः अंश) दिखाती है; निचली पट्टी रिपोर्ट अनुबंध है: issues में ruleId / severity / locator / found / expected / basis, skipped में कारण, और खाली issues का अर्थ «सब ठीक» नहीं है।">
+</picture>
 
 ## तीन चरणों में शुरुआत
 
@@ -358,7 +363,7 @@ pnpm pack                         # प्रकाशित tarball
 | `tests/fixtures/<RULE>/` | प्रति नियम अनुरूप/उल्लंघन फ़िक्स्चर जोड़े |
 | `samples/quickstart/` | एक मिनट का ऑफ़लाइन नमूना |
 
-README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनती हैं (Python + Pillow; हल्का और गहरा SVG) और बिना जोखिम दोबारा चलाई जा सकती हैं। स्क्रिप्ट CJK फ़ॉन्ट खोजती है और खाली डिब्बे बनाने के बजाय त्रुटि के साथ रुक जाती है।
+README की छवियाँ [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनती हैं (स्थानीयकृत hero के लिए Pillow, संरचना आरेख के लिए हाथ से लिखा SVG) और बिना जोखिम दोबारा चलाई जा सकती हैं। प्लगइन में UI नहीं है; आरेख कमांड-सतह टोकन, नियम/फ़ील्ड पहचानकर्ता और संक्षिप्त अंग्रेज़ी टिप्पणियाँ इस्तेमाल करता है। स्क्रिप्ट CJK फ़ॉन्ट खोजती है और खाली डिब्बे बनाने के बजाय त्रुटि के साथ रुक जाती है।
 
 Topics: `deepseek-harness`, `dsh`, `dsh-plugin`, `cordis`, `nurse`, `record`
 
