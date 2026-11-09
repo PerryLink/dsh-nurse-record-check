@@ -1,6 +1,6 @@
 # dsh-nurse-record-check — Nursing record timeliness, sign-off and assessment-form completeness check
 
-[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+[English](README.md) · [简体中文](README-zh.md)
 
 ```sh
 dsh plugin --profile <name> add dsh-nurse-record-check
