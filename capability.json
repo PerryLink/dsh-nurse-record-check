@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "tier": "L2-document",
+  "input_formats": [
+    "json",
+    "yaml"
+  ],
+  "outputs": [
+    "markdown",
+    "json"
+  ],
+  "rules": {
+    "total": 12
+  },
+  "limits": [
+    "只读结构化护理记录，不读 xlsx/docx",
+    "无真实护理记录 P/R"
+  ]
+}
