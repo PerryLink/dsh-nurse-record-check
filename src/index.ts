@@ -113,6 +113,17 @@ export function apply(ctx: Context, config: ConfigShape): () => void {
             },
             issueCount: { type: 'integer' },
             skippedCount: { type: 'integer' },
+            execution: {
+              type: 'object',
+              additionalProperties: false,
+              properties: {
+                total: { type: 'integer' },
+                executed: { type: 'integer' },
+                skipped: { type: 'integer' },
+                manual: { type: 'integer' },
+                unsupported: { type: 'integer' },
+              },
+            },
             markdown: { type: 'string' },
             reportJson: { type: 'string' },
           },
