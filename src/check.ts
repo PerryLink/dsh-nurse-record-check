@@ -581,12 +581,10 @@ export function runCheck(input: NurseRecordInput, ruleset: Ruleset, options: Che
     if (disabled.has(ruleId) || only.has(ruleId) === false && options.onlyRules.length > 0) continue
     skipped.push({ rule: ruleId, reason: withNote(reason) })
   }
-  // Declared rules that neither fired nor explained themselves must be named.
-  for (const rule of ruleset.rules) {
-    if (disabled.has(rule.id) || base.fired.has(rule.id) || base.skipReasons.has(rule.id)) continue
-    if (options.onlyRules.length > 0 && !only.has(rule.id)) continue
-    skipped.push({ rule: rule.id, reason: withNote('材料满足该检查的前置条件且未发现差异条目') })
-  }
+  // A rule that ran and found nothing is an executed-clean result, not a
+  // skipped check. The old loop pushed every clean rule into `skipped` with
+  // "材料满足该检查的前置条件且未发现差异条目", and the view labelled the whole
+  // block "未执行的检查" — turning a completed check into one that never ran.
   if (options.onlyRules.length > 0) {
     const notSelected = ruleset.rules.filter((rule) => !only.has(rule.id) && !disabled.has(rule.id))
     if (notSelected.length > 0) {
@@ -597,6 +595,7 @@ export function runCheck(input: NurseRecordInput, ruleset: Ruleset, options: Che
     }
   }
 
+  const total = ruleset.rules.length
   return makeReport({
     plugin: options.plugin,
     target: input.target,
@@ -604,5 +603,6 @@ export function runCheck(input: NurseRecordInput, ruleset: Ruleset, options: Che
     checkedAt: options.checkedAt,
     issues: context.issues,
     skipped,
+    execution: { total, executed: total - skipped.length, skipped: skipped.length, manual: 0, unsupported: 0 },
   })
 }

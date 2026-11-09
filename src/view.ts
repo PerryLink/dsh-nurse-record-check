@@ -22,6 +22,7 @@ export interface ReportView {
   issueCount: number
   /** Total number of checks that did not run. */
   skippedCount: number
+  execution?: Report['execution']
   /** Markdown body: summary, findings, skipped checks, disclaimer. */
   markdown: string
   /** Canonical JSON of the full report, for programmatic consumers. */
@@ -71,6 +72,9 @@ export function buildView(report: Report): ReportView {
       `检查时间：${report.checkedAt}`,
       `规则集版本：${report.rulesetVersion}`,
       `统计：错误 ${report.summary.error} · 提示 ${report.summary.warn} · 参考 ${report.summary.info}`,
+      ...(report.execution === undefined
+        ? []
+        : [`规则执行：${report.execution.executed}/${report.execution.total} · 跳过 ${report.execution.skipped} · manual ${report.execution.manual} · 未实现 ${report.execution.unsupported}`]),
     ]),
   )
   lines.push('')
@@ -106,6 +110,7 @@ export function buildView(report: Report): ReportView {
     summary: report.summary,
     issueCount: report.issues.length,
     skippedCount: report.skipped.length,
+    ...(report.execution === undefined ? {} : { execution: report.execution }),
     markdown: lines.join('\n'),
     reportJson: canonicalJson(report),
   }
