@@ -1,6 +1,6 @@
 {
   "name": "dsh-nurse-record-check",
-  "version": "0.2.11",
+  "version": "0.2.14-reconcile.0",
   "description": "护理记录时限、签名与评估表完整性校验（依据《病历书写基本规范》等公开文件，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
@@ -17,12 +17,13 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
-    "README-zh.md",
+    "README.en.md",
     "locale/*.json",
     "icon.svg",
     "rules",
     "CHANGELOG.md",
     "SECURITY.md",
+    "docs/assets/*",
     "samples",
     "TROUBLESHOOTING.md",
     "screenshots.json",
@@ -54,7 +55,11 @@
       "writes": [],
       "network": false,
       "external": []
-    }
+    },
+    "capabilities": [
+      "tools:register"
+    ],
+    "labels": []
   },
   "keywords": [
     "deepseek-harness",
@@ -90,8 +95,8 @@
     "@deepseek-ai/schemastery": "^3.18.2"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "4.0.5-alpha.1",
-    "@deepseek-ai/dsh-package-manifest": "0.2.1-rc.2",
+    "@deepseek-ai/cordis": "4.0.5",
+    "@deepseek-ai/dsh-package-manifest": "0.2.1-rc.3",
     "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
     "@deepseek-ai/schemastery": "3.18.5",
     "@types/node": "^22.20.1",

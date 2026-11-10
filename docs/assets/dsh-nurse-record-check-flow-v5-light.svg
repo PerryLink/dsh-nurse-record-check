@@ -1,0 +1,228 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-labelledby="title desc">
+<title id="title">dsh-nurse-record-check rule / input-surface matrix</title>
+<desc id="desc">Twelve nursing-record checks against the four collections they read (records, orders, assessments, episode). A dot marks a collection the rule actually reads. Evidence kind caps severity: direct at error, principle at warn, institutional at info. NR-008 maxAfterAdmission and NR-012 intervalHours ship empty, so both are skipped until configured. The rule pack cites eight documents in twenty verbatim excerpts. The report lists issues with rule id, severity, locator, found/expected and basis, skipped checks with a reason, and always carries the disclaimer.</desc>
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0.18" y2="1"><stop offset="0" stop-color="#f9f6fd"/><stop offset="1" stop-color="#e4eaf8"/></linearGradient>
+<radialGradient id="halo" cx="0.78" cy="0.08" r="0.72"><stop offset="0" stop-color="#4B67B4" stop-opacity="0.12"/><stop offset="1" stop-color="#4B67B4" stop-opacity="0"/></radialGradient>
+<filter id="soft" x="-30%" y="-30%" width="160%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#2b2440" flood-opacity="0.13"/></filter>
+<pattern id="dots" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" fill="#cfc8e2"/></pattern>
+</defs>
+<rect x="0" y="0" width="1100" height="660" fill="url(#bg)"/>
+<rect x="0" y="0" width="1100" height="660" fill="url(#dots)" opacity="0.5"/>
+<rect x="0" y="0" width="1100" height="660" fill="url(#halo)"/>
+<text x="44" y="52" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12">dsh-nurse-record-check · structure</text>
+<text x="44" y="88" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="26" font-weight="700">Twelve rules, four input surfaces</text>
+<text x="44" y="114" fill="#4d5261" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13">Each rule reads only what it declares; the evidence kind caps severity; unrunnable checks are named.</text>
+<rect x="858.0" y="26" width="198.0" height="26" rx="13.0" fill="#ece7f9"/>
+<text x="870.0" y="42.74" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">rules/nurse-record.yaml · v2026.1</text>
+<text x="44" y="138" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">IN · records[] · orders[] · assessments[] · episode · JSON / YAML</text>
+<text x="1056" y="138" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="end">OUT · issues[] + skipped[] + disclaimer</text>
+<line x1="44" y1="150" x2="1056" y2="150" stroke="#e7e4f0" stroke-width="1"/>
+<rect x="44" y="164" width="746" height="402" rx="18" fill="#ffffff" stroke="#e6e2ef" stroke-width="1.5" filter="url(#soft)"/>
+<text x="62" y="184" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700" letter-spacing="1.0">12 RULES · WHAT EACH ONE READS</text>
+<text x="62" y="198" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">● = the rule reads this collection</text>
+<text x="62" y="227" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">rule</text>
+<text x="126" y="227" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">what</text>
+<rect x="234" y="208" width="64" height="30" rx="9" fill="#eef1fa" stroke="#4B67B4" stroke-width="1" opacity="0.95"/>
+<text x="266" y="227" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="middle" font-weight="700">records</text>
+<rect x="300" y="208" width="64" height="30" rx="9" fill="#f2eef9" stroke="#7B5FB0" stroke-width="1" opacity="0.95"/>
+<text x="332" y="227" fill="#7B5FB0" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="middle" font-weight="700">orders</text>
+<rect x="366" y="208" width="64" height="30" rx="9" fill="#eaf5f2" stroke="#2C8377" stroke-width="1" opacity="0.95"/>
+<text x="398" y="227" fill="#2C8377" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="middle" font-weight="700">assess</text>
+<rect x="432" y="208" width="64" height="30" rx="9" fill="#faf2e7" stroke="#A9742C" stroke-width="1" opacity="0.95"/>
+<text x="464" y="227" fill="#A9742C" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="middle" font-weight="700">episode</text>
+<text x="518" y="227" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">evidence</text>
+<text x="644" y="227" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">severity</text>
+<text x="738" y="227" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">cites</text>
+<line x1="266" y1="238" x2="266" y2="558" stroke="#4B67B4" stroke-width="1.4" opacity="0.22"/>
+<line x1="332" y1="238" x2="332" y2="558" stroke="#7B5FB0" stroke-width="1.4" opacity="0.22"/>
+<line x1="398" y1="238" x2="398" y2="558" stroke="#2C8377" stroke-width="1.4" opacity="0.22"/>
+<line x1="464" y1="238" x2="464" y2="558" stroke="#A9742C" stroke-width="1.4" opacity="0.22"/>
+<line x1="62" y1="267.3" x2="776" y2="267.3" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="258.5" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-001</text>
+<text x="126" y="258.5" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">signature</text>
+<circle cx="266" cy="254.0" r="4.6" fill="#4B67B4" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="244.0" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="254.0" r="2.6" fill="#4B67B4"/>
+<text x="534" y="257.8" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="244.0" width="68" height="20" rx="10" fill="#fdecea"/>
+<circle cx="653" cy="254.0" r="3.1" fill="#B42318"/>
+<text x="661" y="257.8" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="738" y="258.5" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">2</text>
+<rect x="56" y="267.3" width="722" height="26.6" rx="6" fill="#f5f2fb" opacity="0.55"/>
+<line x1="62" y1="293.90000000000003" x2="776" y2="293.90000000000003" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="285.1" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-002</text>
+<text x="126" y="285.1" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">timestamps</text>
+<circle cx="266" cy="280.6" r="4.6" fill="#4B67B4" stroke="#ffffff" stroke-width="2.4"/>
+<circle cx="332" cy="280.6" r="4.6" fill="#7B5FB0" stroke="#ffffff" stroke-width="2.4"/>
+<circle cx="398" cy="280.6" r="4.6" fill="#2C8377" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="270.6" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="280.6" r="2.6" fill="#4B67B4"/>
+<text x="534" y="284.40000000000003" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="270.6" width="68" height="20" rx="10" fill="#fdecea"/>
+<circle cx="653" cy="280.6" r="3.1" fill="#B42318"/>
+<text x="661" y="284.40000000000003" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="738" y="285.1" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">1</text>
+<line x1="62" y1="320.5" x2="776" y2="320.5" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="311.7" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-003</text>
+<text x="126" y="311.7" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">minute-precise</text>
+<circle cx="266" cy="307.2" r="4.6" fill="#4B67B4" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="297.2" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="307.2" r="2.6" fill="#4B67B4"/>
+<text x="534" y="311.0" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="297.2" width="68" height="20" rx="10" fill="#fdecea"/>
+<circle cx="653" cy="307.2" r="3.1" fill="#B42318"/>
+<text x="661" y="311.0" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="738" y="311.7" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">2</text>
+<rect x="56" y="320.5" width="722" height="26.6" rx="6" fill="#f5f2fb" opacity="0.55"/>
+<line x1="62" y1="347.1" x2="776" y2="347.1" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="338.3" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-004</text>
+<text x="126" y="338.3" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">rescue 6h</text>
+<circle cx="266" cy="333.8" r="4.6" fill="#4B67B4" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="323.8" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="333.8" r="2.6" fill="#4B67B4"/>
+<text x="534" y="337.6" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="323.8" width="68" height="20" rx="10" fill="#fdecea"/>
+<circle cx="653" cy="333.8" r="3.1" fill="#B42318"/>
+<text x="661" y="337.6" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="738" y="338.3" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">2</text>
+<line x1="62" y1="373.7" x2="776" y2="373.7" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="364.9" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-005</text>
+<text x="126" y="364.9" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">order sign-off</text>
+<circle cx="332" cy="360.4" r="4.6" fill="#7B5FB0" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="350.4" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="360.4" r="2.6" fill="#4B67B4"/>
+<text x="534" y="364.2" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="350.4" width="68" height="20" rx="10" fill="#fdecea"/>
+<circle cx="653" cy="360.4" r="3.1" fill="#B42318"/>
+<text x="661" y="364.2" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="738" y="364.9" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">2</text>
+<rect x="56" y="373.7" width="722" height="26.6" rx="6" fill="#f5f2fb" opacity="0.55"/>
+<line x1="62" y1="400.3" x2="776" y2="400.3" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="391.5" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-006</text>
+<text x="126" y="391.5" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">order sequence</text>
+<circle cx="332" cy="387.0" r="4.6" fill="#7B5FB0" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="377.0" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="387.0" r="2.6" fill="#B45309"/>
+<text x="534" y="390.8" fill="#B45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">principle</text>
+<rect x="644" y="377.0" width="68" height="20" rx="10" fill="#eceff9"/>
+<circle cx="653" cy="387.0" r="3.1" fill="#4B67B4"/>
+<text x="661" y="390.8" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">info</text>
+<text x="738" y="391.5" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">1</text>
+<line x1="62" y1="426.90000000000003" x2="776" y2="426.90000000000003" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="418.1" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-007</text>
+<text x="126" y="418.1" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">cancellation</text>
+<circle cx="332" cy="413.6" r="4.6" fill="#7B5FB0" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="403.6" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="413.6" r="2.6" fill="#4B67B4"/>
+<text x="534" y="417.40000000000003" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="403.6" width="68" height="20" rx="10" fill="#fdecea"/>
+<circle cx="653" cy="413.6" r="3.1" fill="#B42318"/>
+<text x="661" y="417.40000000000003" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="738" y="418.1" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">1</text>
+<rect x="56" y="426.90000000000003" width="722" height="26.6" rx="6" fill="#f5f2fb" opacity="0.55"/>
+<line x1="62" y1="453.50000000000006" x2="776" y2="453.50000000000006" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="444.70000000000005" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-008</text>
+<text x="126" y="444.70000000000005" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">admission form</text>
+<circle cx="398" cy="440.20000000000005" r="4.6" fill="#2C8377" stroke="#ffffff" stroke-width="2.4"/>
+<circle cx="464" cy="440.20000000000005" r="4.6" fill="#A9742C" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="430.20000000000005" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="440.20000000000005" r="2.6" fill="#2C8377"/>
+<text x="534" y="444.00000000000006" fill="#2C8377" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">local config</text>
+<rect x="644" y="430.20000000000005" width="68" height="20" rx="10" fill="#eceff9"/>
+<circle cx="653" cy="440.20000000000005" r="3.1" fill="#4B67B4"/>
+<text x="661" y="444.00000000000006" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">info</text>
+<text x="738" y="444.70000000000005" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">1</text>
+<line x1="62" y1="480.1" x2="776" y2="480.1" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="471.3" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-009</text>
+<text x="126" y="471.3" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">risk forms</text>
+<circle cx="398" cy="466.8" r="4.6" fill="#2C8377" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="456.8" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="466.8" r="2.6" fill="#4B67B4"/>
+<text x="534" y="470.6" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="456.8" width="68" height="20" rx="10" fill="#fdf3e9"/>
+<circle cx="653" cy="466.8" r="3.1" fill="#B45309"/>
+<text x="661" y="470.6" fill="#B45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">warn</text>
+<text x="738" y="471.3" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">2</text>
+<rect x="56" y="480.09999999999997" width="722" height="26.6" rx="6" fill="#f5f2fb" opacity="0.55"/>
+<line x1="62" y1="506.7" x2="776" y2="506.7" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="497.9" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-010</text>
+<text x="126" y="497.9" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">record order</text>
+<circle cx="266" cy="493.4" r="4.6" fill="#4B67B4" stroke="#ffffff" stroke-width="2.4"/>
+<circle cx="332" cy="493.4" r="4.6" fill="#7B5FB0" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="483.4" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="493.4" r="2.6" fill="#B45309"/>
+<text x="534" y="497.2" fill="#B45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">principle</text>
+<rect x="644" y="483.4" width="68" height="20" rx="10" fill="#eceff9"/>
+<circle cx="653" cy="493.4" r="3.1" fill="#4B67B4"/>
+<text x="661" y="497.2" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">info</text>
+<text x="738" y="497.9" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">2</text>
+<line x1="62" y1="533.3" x2="776" y2="533.3" stroke="#e7e4f0" stroke-width="0.8"/>
+<text x="62" y="524.5" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-011</text>
+<text x="126" y="524.5" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">rounds gap</text>
+<circle cx="266" cy="520.0" r="4.6" fill="#4B67B4" stroke="#ffffff" stroke-width="2.4"/>
+<circle cx="464" cy="520.0" r="4.6" fill="#A9742C" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="510.0" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="520.0" r="2.6" fill="#4B67B4"/>
+<text x="534" y="523.8" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">direct</text>
+<rect x="644" y="510.0" width="68" height="20" rx="10" fill="#fdecea"/>
+<circle cx="653" cy="520.0" r="3.1" fill="#B42318"/>
+<text x="661" y="523.8" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">error</text>
+<text x="738" y="524.5" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">3</text>
+<rect x="56" y="533.3000000000001" width="722" height="26.6" rx="6" fill="#f5f2fb" opacity="0.55"/>
+<text x="62" y="551.1" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="13" font-weight="700">NR-012</text>
+<text x="126" y="551.1" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="13" font-weight="700">doc frequency</text>
+<circle cx="266" cy="546.6" r="4.6" fill="#4B67B4" stroke="#ffffff" stroke-width="2.4"/>
+<circle cx="464" cy="546.6" r="4.6" fill="#A9742C" stroke="#ffffff" stroke-width="2.4"/>
+<rect x="518" y="536.6" width="94" height="20" rx="10" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1.1"/>
+<circle cx="527" cy="546.6" r="2.6" fill="#2C8377"/>
+<text x="534" y="550.4" fill="#2C8377" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">local config</text>
+<rect x="644" y="536.6" width="68" height="20" rx="10" fill="#eceff9"/>
+<circle cx="653" cy="546.6" r="3.1" fill="#4B67B4"/>
+<text x="661" y="550.4" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">info</text>
+<text x="738" y="551.1" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">1</text>
+<rect x="816" y="164" width="240" height="402" rx="18" fill="#ffffff" stroke="#e6e2ef" stroke-width="1.5" filter="url(#soft)"/>
+<text x="834" y="188" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700" letter-spacing="0.9">EVIDENCE → SEVERITY CAP</text>
+<rect x="828" y="202" width="212" height="42" rx="12" fill="#fdecea" opacity="0.72"/>
+<rect x="832" y="208" width="3" height="30" rx="1.5" fill="#B42318"/>
+<text x="842" y="220" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="700">direct clause</text>
+<text x="1026" y="220" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="end">8 rules</text>
+<text x="842" y="236" fill="#B42318" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">≤ error</text>
+<rect x="828" y="250" width="212" height="42" rx="12" fill="#fdf3e9" opacity="0.72"/>
+<rect x="832" y="256" width="3" height="30" rx="1.5" fill="#B45309"/>
+<text x="842" y="268" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="700">derived principle</text>
+<text x="1026" y="268" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="end">2 rules</text>
+<text x="842" y="284" fill="#B45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">≤ warn</text>
+<rect x="828" y="298" width="212" height="42" rx="12" fill="#eceff9" opacity="0.72"/>
+<rect x="832" y="304" width="3" height="30" rx="1.5" fill="#4B67B4"/>
+<text x="842" y="316" fill="#141419" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11.5" font-weight="700">institutional config</text>
+<text x="1026" y="316" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="end">2 rules</text>
+<text x="842" y="332" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">≤ info</text>
+<rect x="828" y="358" width="212" height="110" rx="12" fill="#f5f2fb" stroke="#e6e2ef" stroke-width="1" stroke-dasharray="4 4"/>
+<text x="842" y="378" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700" letter-spacing="0.8">EMPTY THRESHOLDS</text>
+<text x="842" y="398" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">NR-008</text>
+<text x="894" y="398" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">maxAfterAdmission</text>
+<text x="894" y="412" fill="#B45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">unset</text>
+<text x="842" y="434" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700">NR-012</text>
+<text x="894" y="434" fill="#4d5261" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">intervalHours</text>
+<text x="894" y="448" fill="#B45309" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">unset</text>
+<text x="842" y="462" fill="#B45309" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">→ unset = skipped, never a pass</text>
+<rect x="828" y="480" width="212" height="72" rx="12" fill="#f5f2fb"/>
+<text x="842" y="496" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" font-weight="700" letter-spacing="0.9">CITATIONS</text>
+<text x="842" y="526" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="22" font-weight="700">8</text>
+<text x="868" y="526" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">docs</text>
+<text x="930" y="526" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="22" font-weight="700">20</text>
+<text x="962" y="526" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">verbatim</text>
+<text x="842" y="546" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">excerpt ≥ 8 chars · verbatim</text>
+<rect x="44" y="580" width="1012" height="48" rx="14" fill="#ffffff" stroke="#e6e2ef" stroke-width="1.5" filter="url(#soft)"/>
+<line x1="170" y1="588" x2="170" y2="620" stroke="#e7e4f0" stroke-width="1"/>
+<text x="60" y="601" fill="#4B67B4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="12" font-weight="700">Report</text>
+<text x="60" y="616" fill="#8f94a4" font-family="'Microsoft YaHei','Segoe UI','PingFang SC','Noto Sans CJK SC',sans-serif" font-size="11">issues + skipped</text>
+<text x="186" y="598" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">issues[]  ruleId · severity · locator · found / expected · basis</text>
+<text x="186" y="615" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">skipped[]  rule + reason · every declared check is named</text>
+<text x="1040" y="598" fill="#141419" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="end">sample · 3 issues (1 error / 2 warn) · skipped 10</text>
+<text x="1040" y="615" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="end">empty issues != a pass</text>
+<line x1="44" y1="636" x2="1056" y2="636" stroke="#e7e4f0" stroke-width="1"/>
+<text x="44" y="652" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11">check(input, ruleset, options) -&gt; Report · no network · no model call</text>
+<text x="1056" y="652" fill="#8f94a4" font-family="Consolas,'Microsoft YaHei',ui-monospace,monospace" font-size="11" text-anchor="end">rulesFile / disabledRules / onlyRules / skipNotes / timeoutMs</text>
+</svg>
