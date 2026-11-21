@@ -42,6 +42,11 @@ O `dsh-nurse-record-check` lê uma exportação legível por máquina de um epis
   <img src="docs/assets/dsh-nurse-record-check-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-nurse-record-check: doze regras numa matriz contra quatro superfícies de entrada (registos, ordens, avaliações, episódio), com um barramento vertical por superfície e um ponto onde a regra realmente lê essa coleção; a barra direita fixa o teto conforme o tipo de fundamento (direto ≤ error, princípio ≤ warn, configuração local ≤ info), os dois limiares que saem vazios (NR-008 maxAfterAdmission, NR-012 intervalHours) e a base de citações (8 documentos, 20 excertos literais); a barra inferior é o contrato do relatório: as diferenças levam ruleId / severity / locator / found / expected / basis, as verificações omitidas levam motivo, e uma lista vazia não é uma aprovação.">
 </picture>
 
+![dsh-nurse-record-check: execução real de terminal](docs/assets/dsh-nurse-record-check-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instalar** (escolha um canal):

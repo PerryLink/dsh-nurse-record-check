@@ -42,6 +42,11 @@ dsh plugin --profile <name> add dsh-nurse-record-check
   <img src="docs/assets/dsh-nurse-record-check-flow-v5-light.svg" width="100%" alt="Estructura de dsh-nurse-record-check: doce reglas en una matriz frente a cuatro superficies de entrada (registros, órdenes, evaluaciones, episodio), con un bus vertical por superficie y un punto donde la regla realmente lee esa colección; la barra derecha fija el techo según el tipo de fundamento (directo ≤ error, principio ≤ warn, configuración local ≤ info), los dos umbrales que salen vacíos (NR-008 maxAfterAdmission, NR-012 intervalHours) y la base de citas (8 documentos, 20 extractos literales); la barra inferior es el contrato del informe: las diferencias llevan ruleId / severity / locator / found / expected / basis, las comprobaciones omitidas llevan motivo, y una lista vacía no es un aprobado.">
 </picture>
 
+![dsh-nurse-record-check: ejecución real de terminal](docs/assets/dsh-nurse-record-check-demo.gif)
+
+*Repetición animada de una ejecución real registrada en este repositorio.*
+
+
 ## Instalación en tres pasos
 
 1. **Instalar** (elija un canal):

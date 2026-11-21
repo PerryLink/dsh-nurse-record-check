@@ -129,6 +129,10 @@ Search for the Medical Record QC Suite in WorkBuddy / Coze — this check is one
 
 ## Examples
 
+![dsh-nurse-record-check: real terminal run](docs/assets/dsh-nurse-record-check-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
 The set below is the example set: the first block is the detailed walkthrough, the table covers common questions. The examples come from the plugin's own test fixtures — not mockups.
 
 **Detailed output** — tool `nurse_record_check`, input:

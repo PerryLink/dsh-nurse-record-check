@@ -42,6 +42,11 @@ dsh plugin --profile <name> add dsh-nurse-record-check
   <img src="docs/assets/dsh-nurse-record-check-flow-v5-light.svg" width="100%" alt="dsh-nurse-record-check संरचना: बारह नियम चार इनपुट सतहों (records, orders, assessments, episode) के सामने एक मैट्रिक्स में, हर सतह के लिए एक ऊर्ध्वाधर बस और एक बिंदु जहाँ नियम वास्तव में वह संग्रह पढ़ता है; दाईं पट्टी आधार के प्रकार की सीमा (direct ≤ error, principle ≤ warn, institutional ≤ info), दो खाली थ्रेशोल्ड (NR-008 maxAfterAdmission, NR-012 intervalHours) और उद्धरण आधार (8 दस्तावेज़, 20 शब्दशः अंश) दिखाती है; निचली पट्टी रिपोर्ट अनुबंध है: issues में ruleId / severity / locator / found / expected / basis, skipped में कारण, और खाली issues का अर्थ «सब ठीक» नहीं है।">
 </picture>
 
+![dsh-nurse-record-check का असली टर्मिनल रन](docs/assets/dsh-nurse-record-check-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें** (कोई एक चैनल चुनें):
