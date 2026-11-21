@@ -320,7 +320,7 @@ El núcleo es una función pura: leer JSON/YAML, ejecutar 12 reglas y construir 
 | Superficie | Estado |
 |---|---|
 | Harness | Rango de peers `>=0.1.2-rc.1 <0.2.0 \|\| >=0.2.0-0 <0.3.0` — verificado para aceptar tanto `0.2.0-rc.2` como `0.2.1-rc.2`. `engines.dsh` se declara como `>=0.2.1-0 <0.3.0` y el host lo aplica desde 0.2.1 |
-| Node | `^22.19.0 || >=24.0.0` |
+| Node | `^22.19.0 \|\| >=24.0.0` |
 | Plataformas | Todas (ESM puro; sin código nativo, sin red, sin llamada al modelo) |
 | Modo de herramienta | Funciona en `native` y `ptc`; para un directorio completo use `ptc` y pague el coste de esquema una sola vez |
 
