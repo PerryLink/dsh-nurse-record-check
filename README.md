@@ -11,6 +11,8 @@
 
 面向护理部与护士长的本地核对插件：读取护理记录、医嘱与评估表的结构化导出，按版本化规则库检查时限、签名与评估表留存，只列差异，不判合规。
 
+最近一次核验：DeepSeek Harness `dsh-v0.2.3-alpha.1`（2026-11-22）。
+
 [安装](#三步上手) · [配置](#配置) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
