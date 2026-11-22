@@ -7,6 +7,8 @@
 
 # dsh-nurse-record-check
 
+Current version `0.2.16`.
+
 **Turn one inpatient episode's nursing records into a line-by-line list of reviewable differences — each one naming the clause it comes from.**
 
 A local checker for nursing departments and head nurses: it reads a structured export of nursing entries, medical orders and assessment forms, checks timeliness, sign-off and assessment-form retention against a versioned rule pack, and lists differences only — never a compliance verdict.
